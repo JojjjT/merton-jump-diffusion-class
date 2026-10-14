@@ -1,0 +1,46 @@
+---
+title: "Teoría: el proceso de Merton (1976)"
+---
+
+## El problema
+
+El Movimiento Browniano Geométrico (GBM) modela los precios como un flujo **continuo** de pequeños pasos. Pero los mercatos a veces **saltan**: crisis, anuncios, quiebras. En 1976, Robert Merton extendió el Black-Scholes con un proceso de Poisson que incorpora esos saltos.
+
+## La ecuación
+
+$$\frac{dS_t}{S_t} = (\mu - \lambda k)\,dt + \sigma\,dW_t + (J - 1)\,dN_t$$
+
+### Componentes
+
+| Término | Significado |
+|---|---|
+| $dW_t$ | Difusión continua (movimiento browniano) |
+| $dN_t$ | Contador de Poisson: $dN_t = 0$ casi siempre, $dN_t = 1$ ocasionalmente |
+| $\lambda$ | Frecuencia promedio de saltos por año (0 a 5) |
+| $J$ | Multiplicador del salto, distribución log-normal |
+| $k = E[J - 1]$ | Compensación del drift por el riesgo de salto |
+| $\sigma$ | Volatilidad de difusión (0.1 a 0.5) |
+| $\mu$ | Drift esperado (0.01 a 0.15) |
+
+## Parámetros del salto
+
+- **$\mu_J$** (−0.3 a 0.3): media del logaritmo del tamaño del salto. Negativo = los saltos tienden a bajar el precio.
+- **$\sigma_J$** (0 a 0.3): volatilidad del logaritmo del salto. Mayor $\sigma_J$ = saltos más variables.
+
+## Conceptos clave
+
+1. **Difusión continua vs. salto discontinuo** — la difusión nunca mueve el precio de golpe; el salto, sí.
+2. **Proceso de Poisson** — genera los instantes de salto; su frecuencia es $\lambda$.
+3. **Log-normalidad del salto** — $J > 0$ siempre, pero teóricamente sin límite superior.
+4. **Compensación del drift ($\lambda k$)** — si los saltos pueden ser negativos, el drift se reduce para no crear arbitraje.
+5. **Superficie de volatilidad implícita** — los modelos de saltos producen la "sonrisa" (smile) que el Black-Scholes ignora.
+6. **Calibración por máxima verosimilitud (MLE)** — estimar $\lambda$, $\mu_J$, $\sigma_J$ y $\sigma$ a partir de datos observados.
+
+::: {.callout-note}
+## Prueba la teoría
+Pasa a la [Demo interactiva](demo_trayectorias.qmd) y manipula λ, μ_J, σ_J y σ con el slider de λ en vivo.
+:::
+
+## Referencias
+
+- Merton, R. C. (1976). Option pricing when underlying stock returns are discontinuous. *Journal of Financial Economics*, 3(1-2), 125-144. https://doi.org/10.1016/0304-405X(76)90022-2

@@ -13,3 +13,10 @@ Thumbs.db
 
 # Documentos intermedios generados
 docs/*.docx
+
+# Quarto
+/.quarto/
+**/*.quarto_ipynb
+/_site/
+/_freeze/
+

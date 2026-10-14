@@ -1,0 +1,132 @@
+---
+title: "Demo interactiva: trayectorias Merton"
+subtitle: "Sliders y menús que funcionan en el sitio publicado, sin kernel"
+jupyter: python3
+---
+
+::: {.callout-note}
+## Cómo leer esta demo
+
+La web publicada **no ejecuta Python** (solo JavaScript). Por eso las trayectorias están **precalculadas** ([scripts/precalcular_trayectorias.py](https://github.com/JojjjT/merton-jump-diffusion-class/blob/main/scripts/precalcular_trayectorias.py)) y el control lo maneja plotly.js. Mueve el slider de **λ** y usa los menús para μ_J, σ_J y σ.
+:::
+
+```{python}
+#| label: fig-trayectorias
+#| fig-cap: "Trayectorias Merton Jump-Diffusion. λ controla la frecuencia de saltos; μ_J y σ_J el tamaño del salto; σ la difusión continua."
+import json
+import plotly.graph_objects as go
+
+with open("data/trayectorias.json", encoding="utf-8") as f:
+    data = json.load(f)
+
+lambdas = data["lambdas"]
+mu_Js = data["mu_Js"]
+sigma_Js = data["sigma_Js"]
+sigmas = data["sigmas"]
+traj = data["trayectorias"]
+
+# Valores por defecto de los menús (λ lo maneja el slider)
+DEF_MU_J, DEF_SIGMA_J, DEF_SIGMA = -0.08, 0.12, 0.2
+
+def key(lam, mu_J, sigma_J, sigma):
+    return f"{lam}|{mu_J}|{sigma_J}|{sigma}"
+
+def traces_for(k):
+    return [
+        go.Scatter(
+            y=s["path"],
+            mode="lines",
+            line=dict(width=2),
+            name=f"Sim {i+1} ({s['saltos']} saltos)",
+        )
+        for i, s in enumerate(traj[k])
+    ]
+
+# ---- Frames: una fila por combinación completa ----
+frames = []
+for lam in lambdas:
+    for mu_J in mu_Js:
+        for sigma_J in sigma_Js:
+            for sigma in sigmas:
+                frames.append(go.Frame(data=traces_for(key(lam, mu_J, sigma_J, sigma)),
+                                       name=key(lam, mu_J, sigma_J, sigma)))
+
+initial = key(1, DEF_MU_J, DEF_SIGMA_J, DEF_SIGMA)
+
+fig = go.Figure(data=traces_for(initial), frames=frames)
+
+# ---- Slider de λ (¡el parámetro estrella de la clase!) ----
+lambda_slider_steps = [
+    dict(
+        label=f"λ = {lam}",
+        method="animate",
+        args=[dict(frame=[key(lam, DEF_MU_J, DEF_SIGMA_J, DEF_SIGMA)], mode="immediate")],
+    )
+    for lam in lambdas
+]
+
+fig.update_layout(
+    sliders=[dict(active=lambdas.index(1), currentvalue=dict(prefix="λ (saltos/año): "),
+                  steps=lambda_slider_steps)],
+    updatemenus=[
+        dict(
+            type="dropdown",
+            direction="down",
+            x=0.0, xanchor="left", y=1.18, yanchor="top",
+            buttons=[
+                dict(label=f"μ_J = {m}", method="animate",
+                     args=[dict(frame=[key(1, m, DEF_SIGMA_J, DEF_SIGMA)], mode="immediate")])
+                for m in mu_Js
+            ],
+        ),
+        dict(
+            type="dropdown",
+            direction="down",
+            x=0.32, xanchor="left", y=1.18, yanchor="top",
+            buttons=[
+                dict(label=f"σ_J = {s}", method="animate",
+                     args=[dict(frame=[key(1, DEF_MU_J, s, DEF_SIGMA)], mode="immediate")])
+                for s in sigma_Js
+            ],
+        ),
+        dict(
+            type="dropdown",
+            direction="down",
+            x=0.62, xanchor="left", y=1.18, yanchor="top",
+            buttons=[
+                dict(label=f"σ = {s}", method="animate",
+                     args=[dict(frame=[key(1, DEF_MU_J, DEF_SIGMA_J, s)], mode="immediate")])
+                for s in sigmas
+            ],
+        ),
+    ],
+    xaxis=dict(title="Días", showgrid=False),
+    yaxis=dict(title="Precio", range=[40, 220]),
+    legend=dict(orientation="h", y=-0.2),
+    margin=dict(t=100),
+    height=520,
+)
+
+fig.show(config={"displaylogo": False})
+```
+
+## Consigna metacognitiva
+
+Antes de tocar el demo, responde y luego verifica:
+
+1. **Planifiqué:** ¿qué espero ver cuando λ pasa de 0 a 5?
+2. **Monitoreé:** ¿qué observé realmente en las trayectorias?
+3. **Controlé:** ¿qué parámetro ajusté para comprobar otra hipótesis?
+4. **Evalué:** ¿qué resultado me hizo revisar mi razonamiento?
+
+**Preguntas guía:**
+
+- ¿Qué cambio observable produce λ=0 (GBM puro) vs λ=5?
+- ¿Qué μ_J hace que los saltos tiren el precio hacia abajo?
+- ¿Por qué una sola trayectoria sin saltos no demuestra que λ=0?
+- ¿Qué relación tiene este demo con la superficie de volatilidad implícita del notebook 03?
+
+::: {.callout-tip}
+## ¿Necesitas interactividad Python en vivo?
+Usa el simulador completo con `ipywidgets` en [Google Colab](https://colab.research.google.com/github/JojjjT/merton-jump-diffusion-class/blob/main/notebooks/02_app_interactiva_merton.ipynb) o corre el [app Streamlit](https://github.com/JojjjT/merton-jump-diffusion-class/blob/main/scripts/app_streamlit.py) localmente.
+:::

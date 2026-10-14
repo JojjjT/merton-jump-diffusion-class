@@ -1,0 +1,46 @@
+/*============================================================
+  Animaciones — CSS puro, compatible con la salida estática
+  de Quarto. Gate: material didáctico (tier ocasional).
+  Propósitos: *explanation* (revelado de contenido) y
+  *feedback* visual del progreso de lectura.
+ ============================================================*/
+
+/* Tokens */
+:root {
+  --merton-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --merton-dur-card: 350ms;
+  --merton-dur-hover: 160ms;
+}
+
+/* Revelado de tarjetas al scroll: opacity + transform nada más.
+   El estado oculto solo aplica si el JS de revelado arrancó
+   (html.js-anim lo pone inject.html al inicio del <head>). */
+html.js-anim .merton-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--merton-dur-card) var(--merton-ease-out),
+    transform var(--merton-dur-card) var(--merton-ease-out);
+}
+
+.merton-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger: retraso por índice (JS pone --merton-delay) */
+html.js-anim .merton-reveal {
+  transition-delay: var(--merton-delay, 0ms);
+}
+
+/* Reduced motion: quito el movimiento, conservo la aparición */
+@media (prefers-reduced-motion: reduce) {
+  html.js-anim .merton-reveal {
+    transition: opacity 200ms ease;
+    transform: none;
+  }
+
+  .merton-reveal.is-visible {
+    transform: none;
+  }
+}

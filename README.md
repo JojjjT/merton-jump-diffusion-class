@@ -29,18 +29,38 @@ $$\frac{dS_t}{S_t} = (\mu - \lambda k)dt + \sigma dW_t + (J - 1)dN_t$$
 
 ## Repositorio
 
+Sitio construido con [Quarto](https://quarto.org) (proyecto `website`). El HTML se genera en cada push mediante GitHub Actions y se publica en GitHub Pages.
+
 ```
-├── index.html                  # Sitio web (GitHub Pages)
-├── docs/                       # PDFs para imprimir
-├── notebooks/                  # Cuadernos Colab
-├── scripts/                    # App Streamlit + generadores
-└── assets/
-    ├── laboratorio_graficos/   # 6 PNG (3 GBM, 3 Merton)
-    ├── cartas/                 # 20 cartas PNG
-    └── debriefing/             # Heatmap de confusión
+├── _quarto.yml                  # Config del sitio (navbar, sidebar, tema)
+├── index.qmd                    # Landing
+├── teoria.qmd                   # Proceso de Merton (ecuación LaTeX)
+├── demo_trayectorias.qmd        # Demo plotly con slider de λ (publicable, sin kernel)
+├── materiales.qmd               # PDFs + galería de cartas/gráficos
+├── guion_docente.qmd            # Plan de clase 120 min
+├── styles/
+│   ├── custom.scss              # Sistema de diseño (tokens)
+│   ├── animations.css           # Motion CSS puro
+│   └── inject.html              # Fuentes + IntersectionObserver
+├── data/trayectorias.json       # Trayectorias precalculadas (interactividad estática)
+├── notebooks/                   # 3 cuadernos .ipynb (renderizados por Quarto)
+├── docs/                        # PDFs para imprimir
+├── scripts/                     # Streamlit + generadores + precalculo
+├── assets/                      # PNG (gráficos, cartas, heatmap)
+└── .github/workflows/publish.yml  # Deploy automático a Pages
 ```
 
 ## Uso rápido
+
+### Ver el sitio en local
+```bash
+quarto preview
+```
+
+### Construir el sitio
+```bash
+quarto render          # genera _site/
+```
 
 ### Notebooks en Colab
 Abre cualquiera de los tres cuadernos directamente en Google Colab con el botón badge. Solo requieren `numpy`, `matplotlib`, `ipywidgets` y `plotly`.
@@ -55,10 +75,14 @@ streamlit run scripts/app_streamlit.py
 ```bash
 python scripts/generar_graficos_laboratorio.py   # 6 gráficos
 python scripts/generar_cartas.py                 # 20 cartas
+python scripts/precalcular_trayectorias.py       # data/trayectorias.json
 python scripts/heatmap_debriefing.py             # heatmap (requiere seaborn)
 python scripts/generar_pdfs.py                   # DOCX intermedios
 python scripts/convertir_docx_a_pdf.py           # conversión a PDF (LibreOffice)
 ```
+
+### Publicación
+Cada push a `main` ejecuta `.github/workflows/publish.yml`: instala Quarto, ejecuta `quarto render` y despliega `_site/` a GitHub Pages.
 
 ## Evaluación
 

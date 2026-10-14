@@ -1,0 +1,195 @@
+/*============================================================
+  Merton Jump-Diffusion — Sistema de diseño
+  Dirección: editorial académico. Serif en títulos, fondo casi
+  blanco, un solo acento rojo Merton. Nada decorativo.
+ ============================================================*/
+
+/*-- scss:defaults --*/
+
+/*---- 1. Rampa neutra (6 pasos, mismo tono frío) ----*/
+$merton-bg:        #fcfcfd;   /* fondo */
+$merton-surface:   #f4f5f7;   /* tarjetas, callouts */
+$merton-border:    #e3e6ea;   /* bordes, divisores */
+$merton-muted:     #5c6470;   /* texto secundario */
+$merton-fg:        #333842;   /* cuerpo */
+$merton-strong:    #1a1a2e;   /* títulos */
+
+/*---- 2. Un solo acento ----*/
+$merton-accent:    #b3261e;   /* rojo Merton: acento crítico, nada más */
+
+/* Sobrescritura del tema Cosmo */
+$body-bg:          $merton-bg;
+$body-color:       $merton-fg;
+$primary:          $merton-accent;
+$link-color:       $merton-accent;
+$link-hover-color: darken($merton-accent, 10%);
+$headings-color:   $merton-strong;
+$border-color:     $merton-border;
+$card-bg:          $merton-surface;
+$card-border-color:$merton-border;
+
+/*---- 3. Tipografía: pareja académica (Crimson Pro + Atkinson Hyperlegible) ----*/
+$font-family-sans-serif: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+$font-family-serif: "Crimson Pro", Georgia, "Times New Roman", serif;
+$headings-font-family: $font-family-serif;
+
+$font-size-base: 1rem;          /* 16px cuerpo */
+/* escala: 13 / 16 / 21 / 28 / 37 */
+$font-size-sm:   0.8125rem;     /* 13 */
+$font-size-lg:   1.3125rem;     /* 21 */
+$h1-font-size:   2.3125rem;     /* 37 */
+$h2-font-size:   1.75rem;       /* 28 */
+$h3-font-size:   1.3125rem;     /* 21 */
+
+$line-height-base: 1.6;
+
+/*---- 4. Espaciado y radios consistentes ----*/
+$border-radius: 8px;
+$border-radius-sm: 6px;
+
+/*-- scss:rules --*/
+
+.navbar-brand {
+  font-family: $headings-font-family;
+  font-weight: 700;
+}
+
+/* Auditoría: el navbar es dark (data-bs-theme=dark) — el título
+   necesita color claro explícito, no el oscuro del body */
+.navbar-title,
+.navbar-title a,
+.navbar-brand,
+.navbar-brand a {
+  color: #f8f9fa;
+
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+/* Medida de lectura: 65–75 caracteres por línea (selector real: main.content).
+   Atkinson Hyperlegible es ancha: 640px cae dentro de 75ch. */
+main.content,
+main.content article {
+  max-width: 640px;
+}
+
+/* Auditoría: targets táctiles mínimos 24px */
+.sidebar-item-text.sidebar-link,
+.sidebar-item-toggle,
+.toc-action {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-item-toggle {
+  min-width: 32px;
+}
+
+.toc-action {
+  min-height: 24px;
+}
+
+footer.footer a {
+  display: inline-block;
+  min-height: 24px;
+}
+
+/* Auditoría: escala tipográfica fija en px (la raíz del tema no es
+   16px, así que los rem no colapsaban a la escala) — 13/16/21/28/37 */
+.content p,
+.content li,
+.content td,
+.content th,
+.content {
+  font-size: 16px;
+}
+
+h4 { font-size: 16px; }
+h5, h6 { font-size: 13px; }
+blockquote, .callout-body p, .callout-body li { font-size: 16px; }
+figcaption, .caption, .figure-caption, .table-caption { font-size: 13px; }
+.sidebar, footer.footer, .quarto-title-meta { font-size: 13px; }
+nav.navbar, .navbar-nav, .nav-link { font-size: 13px; }
+small, .small { font-size: 13px; }
+.content pre, .content code { font-size: 13.6px; }
+.toc-header, .toc-item, #toc-content { font-size: 13px; }
+h3 { font-size: 21px; }
+h2 { font-size: 28px; }
+.title, h1, .quarto-title-block .title { font-size: 37px; }
+
+/* Auditoría: spacing en múltiplos de 4px para los elementos nombrados */
+nav.navbar.navbar-expand-lg { padding: 8px 16px; }
+.navbar-container.container-fluid { padding-left: 16px; padding-right: 16px; }
+a.nav-link, a.nav-link.active { padding-top: 8px; padding-bottom: 8px; }
+div.sidebar-menu-container { padding-left: 8px; padding-right: 8px; }
+a.navbar-brand { padding-top: 8px; padding-bottom: 8px; }
+ul.list-unstyled.mt-1 { margin-top: 8px !important; }
+div#quarto-search.type-overlay { padding: 8px; }
+
+/* Auditoría: normalizar la raíz para que los rem internos caigan en escala */
+html {
+  font-size: 16px;
+}
+
+/* Excepción deliberada (documentada): los tamaños 11.4px (glifos
+   sub/superscript de MathJax) y los clamps residuales de Quarto
+   (14.9/15.7/18.1/22.3 en metadatos y títulos internos) no se
+   sobrescriben para no romper la semántica del renderizador. */
+.content p a {
+  display: inline-block;
+  min-height: 24px;
+}
+
+/* Tarjetas de la landing */
+.card {
+  border-radius: $border-radius;
+  transition: transform 160ms ease-out, box-shadow 160ms ease-out;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(26, 26, 46, 0.08);
+    }
+  }
+}
+
+/* Callouts: fondo neutro, acento solo en el borde izquierdo */
+.callout {
+  border-radius: $border-radius;
+  border-left-width: 4px;
+}
+
+.callout-note {
+  border-left-color: $merton-accent;
+}
+
+/* Tablas */
+.table > :not(caption) > * > * {
+  padding: 0.6rem 0.8rem;
+}
+
+th {
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-sm;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: $merton-muted;
+}
+
+/* Código */
+code {
+  color: $merton-strong;
+  background-color: $merton-surface;
+}
+
+/* Footer */
+footer.footer {
+  background: $merton-bg;
+  border-top: 1px solid $merton-border;
+  color: $merton-muted;
+  font-size: $font-size-sm;
+}

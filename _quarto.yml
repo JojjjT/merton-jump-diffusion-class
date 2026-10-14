@@ -1,0 +1,55 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Merton Jump-Diffusion"
+  description: "Clase completa: del conflicto cognitivo a la transferencia metacognitiva"
+  site-url: https://jojjjt.github.io/merton-jump-diffusion-class/
+  repo-url: https://github.com/JojjjT/merton-jump-diffusion-class
+  repo-actions: [edit, issue]
+  page-footer:
+    left: "Universidad Externado de Colombia · Quinto semestre · DEFI 2"
+    right: "Licencia MIT"
+  navbar:
+    pinned: true
+    search: true
+    left:
+      - href: index.qmd
+        text: Inicio
+      - href: teoria.qmd
+        text: Teoría
+      - href: demo_trayectorias.qmd
+        text: Demo interactiva
+      - href: materiales.qmd
+        text: Materiales
+      - href: guion_docente.qmd
+        text: Guion docente
+  sidebar:
+    - style: "docked"
+      contents:
+        - index.qmd
+        - section: "La clase"
+          contents:
+            - teoria.qmd
+            - demo_trayectorias.qmd
+        - section: "Notebooks"
+          contents:
+            - notebooks/01_colapso_GBM.ipynb
+            - notebooks/02_app_interactiva_merton.ipynb
+            - notebooks/03_superficie_volatilidad_3D.ipynb
+        - section: "Materiales"
+          contents:
+            - materiales.qmd
+            - guion_docente.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - styles/custom.scss
+    css: [styles/animations.css]
+    include-in-header: styles/inject.html
+    smooth-scroll: true
+    code-copy: true
+    anchor-sections: true

@@ -1,12 +1,12 @@
 # Merton Jump-Diffusion — Clase completa
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/USUARIO/merton-jump-diffusion-class/blob/main/notebooks/01_colapso_GBM.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JojjjT/merton-jump-diffusion-class/blob/main/notebooks/01_colapso_GBM.ipynb)
 
 Clase de 120 minutos sobre **Saltos por Difusión de Merton (1976)** diseñada desde las ciencias cognitivas del aprendizaje: la secuencia produce **conflicto cognitivo** (la intuición de continuidad colapsa) y lo regula con un ciclo **metacognitivo** (Planificar–Monitorear–Controlar–Evaluar).
 
 > **Regla de oro:** la clase no enseña «qué es Merton». Enseña **cómo regular el pensamiento cuando el modelo mental de continuidad colapsa**. Merton es el vehículo; la metacognición es el destino.
 
-🌐 **Sitio web:** <https://USUARIO.github.io/merton-jump-diffusion-class/>
+🌐 **Sitio web:** <https://jojjjt.github.io/merton-jump-diffusion-class/>
 
 ## El proceso
 

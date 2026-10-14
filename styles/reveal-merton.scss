@@ -1,0 +1,184 @@
+/*-- scss:defaults --*/
+/*============================================================
+  Presentaciones Merton — revealjs, blanco académico.
+  Fondo blanco puro, títulos navy serif, acento dorado escaso.
+ ============================================================*/
+
+$white: #ffffff;
+$navy: #1e3a5f;
+$gold: #8a6d1f;
+$ink: #16181d;
+$muted: #55606e;
+$surface: #f5f6f8;
+$border: #d8dce2;
+
+// Fondo de diapositiva blanco puro
+$slide-background-color: $white;
+$slide-background-border-color: $border;
+
+// Tipografía académica
+$heading-font-family: "Crimson Pro", Georgia, "Times New Roman", serif;
+$body-font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+$code-font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+$presentation-heading-color: $navy;
+$presentation-heading-font-family: $heading-font-family;
+$presentation-font-color: $ink;
+$presentation-font-size-root: 28px;
+$presentation-line-height: 1.5;
+
+// Acento dorado en enlaces y énfasis
+$link-color: $navy;
+$link-hover-color: $gold;
+$selection-background-color: rgba(138, 109, 31, 0.22);
+
+// Regla fina navy bajo el título de cada slide
+$rule-color: $border;
+
+/*-- scss:rules --*/
+
+/* Título de portada */
+.reveal {
+  h1.title {
+    color: $navy;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  p.subtitle {
+    color: $muted;
+  }
+  .quarto-title-meta {
+    color: $muted;
+    font-size: 0.6em;
+  }
+}
+
+/* Regla de sección + número de slide */
+.reveal {
+  section.center h2,
+  section.title-slide h2 {
+    border-bottom: 1px solid $border;
+    padding-bottom: 0.3em;
+  }
+  .slide-number {
+    color: $muted;
+    font-family: $body-font-family;
+    font-size: 0.5em;
+  }
+  .footnotes {
+    color: $muted;
+    font-size: 0.6em;
+  }
+}
+
+/* Bullets: punto navy cuadrado, ritmo holgado */
+.reveal ul, .reveal ol {
+  margin-left: 0.4em;
+}
+.reveal li {
+  margin-bottom: 0.5em;
+  line-height: 1.45;
+}
+.reveal li::marker {
+  color: $navy;
+}
+
+/* Énfasis académico: strong en near-black, no color */
+.reveal strong {
+  color: $navy;
+  font-weight: 700;
+}
+.reveal em {
+  color: $gold;
+}
+
+/* Tablas académicas: reglas horizontales, sin relleno pesado */
+.reveal table {
+  border-collapse: collapse;
+  font-size: 0.72em;
+}
+.reveal table th {
+  background: $surface;
+  color: $navy;
+  border-bottom: 2px solid $navy;
+  font-family: $body-font-family;
+  text-transform: none;
+  padding: 0.5em 0.7em;
+}
+.reveal table td {
+  border-bottom: 1px solid $border;
+  padding: 0.45em 0.7em;
+}
+
+/* Bloques destacados */
+.reveal blockquote {
+  background: $surface;
+  border-left: 4px solid $gold;
+  padding: 0.5em 0.9em;
+  box-shadow: none;
+  font-style: normal;
+}
+.reveal blockquote p {
+  color: $ink;
+}
+
+/* Código */
+.reveal pre code {
+  background: $surface;
+  color: $ink;
+  border: 1px solid $border;
+  border-radius: 6px;
+  padding: 0.6em;
+  font-size: 0.62em;
+  max-height: none;
+}
+
+/* Imágenes y figure captions */
+.reveal img {
+  max-width: 100%;
+  max-height: 62vh;
+  border: 1px solid $border;
+  border-radius: 4px;
+}
+.reveal figcaption,
+.reveal .figure-caption {
+  color: $muted;
+  font-size: 0.58em;
+}
+
+/* Enlaces con target táctil mínimo 24px (auditoría) */
+.reveal p a,
+.reveal li a,
+.reveal a {
+  display: inline-block;
+  min-height: 24px;
+  line-height: 24px;
+}
+
+/* Espaciado de metadatos de portada y controles, alineado a rejilla de 4px (auditoría) */
+.reveal .quarto-title-author {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.reveal .slide-number {
+  padding: 4px 8px;
+  font-size: 0.5em;
+}
+.reveal .slide-menu-item {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* Transición sobria (accesible, nada de zoom) */
+.reveal-viewport {
+  background: $white;
+}
+
+/* Reduced motion: sin deslizamiento, solo cambio directo */
+@media (prefers-reduced-motion: reduce) {
+  .reveal .slides section {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,242 @@
+---
+title: "El Mercado que Salta + Debriefing"
+subtitle: "Juego gamificado y transferencia metacognitiva"
+author: "Universidad Externado de Colombia · DEFI 2"
+format:
+  revealjs:
+    theme: ../styles/reveal-merton.scss
+    transition: fade
+    slide-number: true
+    preview-links: auto
+    footer: "Merton Jump-Diffusion · Juego y debriefing"
+    fig-cap-location: bottom
+    width: 1280
+    height: 720
+---
+
+## El juego: "El Mercado que Salta"
+
+::: {.incremental}
+- Simularás un mercado con **20 cartas**: 17 de difusión, 3 de salto.
+- **Predices** el precio final antes de cada carta.
+- Volteas la carta y **actualizas** el precio.
+- Anotas **cuándo** tu predicción falla.
+:::
+
+---
+
+## Materiales por mesa
+
+::: {.incremental}
+- 20 cartas (17 verdes de difusión, 3 rojas de salto).
+- Un **dado**, calculadora.
+- Hoja de predicciones y **tarjeta metacognitiva**.
+- Precio base: **100**.
+:::
+
+---
+
+## Cartas de difusión (17)
+
+::: {.incremental}
+- Instrucción: "Tira el dado. Si sale 1–3, el precio **sube 2%**. Si sale 4–6, **baja 2%**."
+- Movimientos **pequeños y continuos** — como el GBM.
+- Son la **mayoría** del mercado (como en la realidad).
+- Tu intuición funciona bien aquí.
+:::
+
+---
+
+## Cartas de salto (3)
+
+::: {.incremental}
+- Instrucción: "**¡SALTO!** El precio **cae 15%**."
+- Movimiento **grande y discontinuo** — como Merton.
+- Son **raras** pero **devastadoras**.
+- Aquí tu intuición de continuidad **fallará**.
+:::
+
+---
+
+## Cómo se juega
+
+::: {.incremental}
+1. Anota tu **predicción** del precio antes de voltear.
+2. Voltea la carta y aplica el movimiento.
+3. **Actualiza** el precio real.
+4. Compara predicción vs. realidad.
+5. Repite hasta las 20 cartas.
+6. **Calcula** el precio final con la fórmula simplificada.
+:::
+
+---
+
+## La fórmula simplificada
+
+$$P_{final} = P_{anterior} \times (1 + \text{movimiento})$$
+
+::: {.incremental}
+- Difusión: $P \times 1.02$ (sube) o $P \times 0.98$ (baja).
+- Salto: $P \times 0.85$ (cae 15%).
+- Encadena 20 veces desde $P_0 = 100$.
+- **Sorpresa:** 3 saltos pueden **hundir** lo que 17 difusiones construyeron.
+:::
+
+---
+
+## La lección del juego
+
+::: {.incremental}
+- Predijiste bien las **difusión** (continuidad).
+- Fallaste en los **saltos** (discontinuidad).
+- Tu modelo mental asumía continuidad — **colapsó** en las cartas rojas.
+- **Ese** es el conflicto cognitivo, vivido en tus manos.
+:::
+
+::: {.callout-note}
+Si fallaste exactamente en las cartas de salto, la clase **funcionó**. Tu intuición chocó con la realidad.
+:::
+
+---
+
+## El error es el dato valioso
+
+::: {.incremental}
+- No escondas tu error: **anótalo**.
+- El momento exacto en que fallaste revela **dónde** tu modelo se rompió.
+- Ese dato alimenta el debriefing.
+- Sin registro del error, la simulación es solo un juego.
+:::
+
+---
+
+# Debriefing metacognitivo (Modelo 3D) {.center}
+
+---
+
+## Por qué debriefing
+
+::: {.incremental}
+- Sin debriefing, una simulación es un **juego**, no una intervención cognitiva.
+- El debriefing **convierte** la experiencia en aprendizaje.
+- Modelo 3D: **Defusing → Discovering → Deepening** (basado en Kolb, 1984).
+- Es donde la metacognición se **consolida**.
+:::
+
+---
+
+## Defusing — desactivar (5 min)
+
+**Objetivo:** reducir la activación y hacer explícita la confusión.
+
+::: {.incremental}
+- ¿Qué **sentiste** cuando la predicción falló?
+- ¿Qué **frase** repitieron para explicar el error?
+- ¿Cómo se sienten ahora respecto al modelo de continuidad?
+:::
+
+---
+
+## Discovering — descubrir (8 min)
+
+**Objetivo:** revelar el proceso cognitivo y metacognitivo.
+
+::: {.incremental}
+- ¿En qué momento **exacto** notaron que su intuición ya no servía?
+- ¿Qué **hicieron** para corregir la predicción?
+- ¿Qué papel jugaron $\lambda, \mu_J, \sigma_J$ en su razonamiento?
+:::
+
+---
+
+## Deepening — profundizar (7 min)
+
+**Objetivo:** transferir a nuevas situaciones.
+
+::: {.incremental}
+- ¿Dónde **más** ocurren "saltos" en finanzas, economía o vida cotidiana?
+- ¿Qué **señal** usarían para ajustar su modelo mental en el futuro?
+- Completa: "**Cuando mi modelo mental de continuidad falla, yo…**"
+:::
+
+---
+
+## El heatmap de la confusión
+
+::: {.incremental}
+- Cada estudiante marca **dónde** falló su intuición (formulario).
+- Se proyecta un **heatmap** en tiempo real.
+- Muestra el **momento colectivo** de mayor conflicto cognitivo.
+- Sirve de **espejo**: no fuiste el único que colapsó.
+:::
+
+---
+
+## La transferencia lejana
+
+::: {.incremental}
+- El objetivo **no** es memorizar Merton.
+- Es aprender a **regular el pensamiento** cuando un modelo falla.
+- Esa regulación **se transfiere** a otros contextos (Gobet & Sala, 2023).
+- La habilidad "dura" (Merton) no transfiere; la **metacognición**, sí.
+:::
+
+---
+
+## Tarea de transferencia
+
+::: {.incremental}
+- Identifica un **"salto" real** en tu vida o en los mercados.
+- Describe el contexto y el momento del salto.
+- Explica por qué un modelo de continuidad **no** lo habría predicho.
+- Propón cómo ajustar un modelo con saltos.
+- Reflexiona: **qué señal** usaste para detectarlo.
+:::
+
+---
+
+## Rúbrica de evaluación
+
+| Criterio | Insuficiente (1) | Suficiente (2) | Sobresaliente (3) |
+|---|---|---|---|
+| Detección de discontinuidad | No identifica saltos | Con apoyo | Con evidencia |
+| Uso de parámetros | No relaciona | Relaciona λ con frecuencia | Explica λ, μ_J, σ_J |
+| Regulación metacognitiva | No describe su proceso | Monitoreo básico | Ciclo P–M–C–E completo |
+| Transferencia | No aplica | Menciona otro contexto | Caso real + señal de ajuste |
+
+---
+
+## Cierre de la clase
+
+::: {.incremental}
+- Vimos que la **continuidad** es una suposición, no una verdad.
+- Merton dio un modelo con **saltos** (Poisson, log-normal, compensación).
+- Los saltos se ven en **trayectorias** y en la **sonrisa** de volatilidad.
+- **Viviste** el conflicto al predecir y fallar.
+- Practicaste **regular** tu pensamiento — eso es lo transferible.
+:::
+
+---
+
+## Volviendo a la pregunta de apertura
+
+> Recordaste: "¿cómo crees que se mueve el precio?"
+
+::: {.incremental}
+- Al inicio dijiste quizás: "pasos continuos".
+- Hoy sabes: **casi siempre** continuo, **pero a veces salta**.
+- Y sabes **detectar** cuándo tu intuición de continuidad falla.
+- Ese es el verdadero aprendizaje.
+:::
+
+---
+
+## Gracias
+
+::: {.incremental}
+- **Merton** es el vehículo; **la metacognición** es el destino.
+- Recursos, notebooks y PDFs: en el **sitio web** de la clase.
+- Sigue practicando: **planifica, monitorea, controla, evalúa**.
+:::
+
+> "Los precios no solo caminan. **Saltan.** Y tú ya sabes verlo."

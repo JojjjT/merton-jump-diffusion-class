@@ -1,31 +1,32 @@
 /*============================================================
   Merton Jump-Diffusion — Sistema de diseño
-  Dirección: editorial académico. Serif en títulos, fondo casi
-  blanco, un solo acento rojo Merton. Nada decorativo.
+  Dirección: blanco académico. Serif en títulos, fondo blanco
+  puro, navy para estructura, un solo acento dorado profundo
+  usado con escasez. Nada decorativo.
  ============================================================*/
 
 /*-- scss:defaults --*/
 
-/*---- 1. Rampa neutra (6 pasos, mismo tono frío) ----*/
-$merton-bg:        #fcfcfd;   /* fondo */
-$merton-surface:   #f4f5f7;   /* tarjetas, callouts */
-$merton-border:    #e3e6ea;   /* bordes, divisores */
-$merton-muted:     #5c6470;   /* texto secundario */
-$merton-fg:        #333842;   /* cuerpo */
-$merton-strong:    #1a1a2e;   /* títulos */
+/*---- 1. Rampa: blanco dominante, near-black para lectura ----*/
+$merton-bg:        #ffffff;   /* fondo blanco puro */
+$merton-surface:   #f5f6f8;   /* callouts, superficies suaves */
+$merton-border:    #d8dce2;   /* bordes, divisores */
+$merton-muted:     #55606e;   /* texto secundario */
+$merton-fg:        #16181d;   /* cuerpo (near-black) */
+$merton-strong:    #1e3a5f;   /* títulos: navy scholarly */
 
-/*---- 2. Un solo acento ----*/
-$merton-accent:    #b3261e;   /* rojo Merton: acento crítico, nada más */
+/*---- 2. Un solo acento, escaso ----*/
+$merton-accent:    #8a6d1f;   /* dorado profundo (AA sobre blanco) */
 
 /* Sobrescritura del tema Cosmo */
 $body-bg:          $merton-bg;
 $body-color:       $merton-fg;
-$primary:          $merton-accent;
-$link-color:       $merton-accent;
-$link-hover-color: darken($merton-accent, 10%);
+$primary:          $merton-strong;   /* la estructura manda, no el acento */
+$link-color:       $merton-strong;
+$link-hover-color: $merton-accent;
 $headings-color:   $merton-strong;
 $border-color:     $merton-border;
-$card-bg:          $merton-surface;
+$card-bg:          $merton-bg;
 $card-border-color:$merton-border;
 
 /*---- 3. Tipografía: pareja académica (Crimson Pro + Atkinson Hyperlegible) ----*/

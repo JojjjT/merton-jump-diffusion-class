@@ -21,6 +21,8 @@ website:
         text: Teoría
       - href: demo_trayectorias.qmd
         text: Demo interactiva
+      - href: slides/00_portada.qmd
+        text: Presentaciones
       - href: materiales.qmd
         text: Materiales
       - href: guion_docente.qmd
@@ -33,6 +35,13 @@ website:
           contents:
             - teoria.qmd
             - demo_trayectorias.qmd
+        - section: "Presentaciones"
+          contents:
+            - slides/00_portada.qmd
+            - slides/01_teoria.qmd
+            - slides/02_laboratorio.qmd
+            - slides/03_volatilidad.qmd
+            - slides/04_juego_debriefing.qmd
         - section: "Notebooks"
           contents:
             - notebooks/01_colapso_GBM.ipynb

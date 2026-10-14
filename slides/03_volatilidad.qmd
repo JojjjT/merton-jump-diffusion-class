@@ -1,0 +1,160 @@
+---
+title: "Volatilidad implícita y la sonrisa"
+subtitle: "La firma de los saltos en los precios de opciones"
+author: "Universidad Externado de Colombia · DEFI 2"
+format:
+  revealjs:
+    theme: ../styles/reveal-merton.scss
+    transition: fade
+    slide-number: true
+    preview-links: auto
+    footer: "Merton Jump-Diffusion · Volatilidad implícita"
+    fig-cap-location: bottom
+    width: 1280
+    height: 720
+---
+
+## De trayectorias a opciones
+
+::: {.incremental}
+- Hasta ahora miramos **precios** (trayectorias).
+- Los modelos de saltos también predicen algo sobre las **opciones**.
+- La conexión es la **volatilidad implícita**.
+- Es donde los saltos se hacen **visibles** para el mercado.
+:::
+
+---
+
+## ¿Qué es la volatilidad implícita?
+
+::: {.incremental}
+- Toma el **precio observado** de una opción.
+- Invierte la fórmula de Black-Scholes para obtener la $\sigma$ que lo justifica.
+- Esa $\sigma$ es "implícita": **no** es la volatilidad real del activo.
+- Es lo que el mercado **cree** que va a pasar.
+:::
+
+---
+
+## La suposición que se rompe
+
+::: {.incremental}
+- Black-Scholes asume una $\sigma$ **única** para todas las opciones de un activo.
+- En la práctica, cada opción da una $\sigma$ **distinta**.
+- Al graficar $\sigma$ implícita vs. **strike**, no sale una línea recta.
+- Sale una **curva**. Ese es el fenómeno.
+:::
+
+---
+
+## La sonrisa (smile)
+
+::: {.incremental}
+- La curva se parece a una **sonrisa**: mínima al centro, alta en los extremos.
+- Opciones **out-of-the-money** (tanto puts como calls) tienen $\sigma$ implícita **mayor**.
+- El mercado **sobra** protegerse de movimientos extremos.
+- Es la firma de que cree en **saltos**, no en pura continuidad.
+:::
+
+---
+
+## La sonrisa inclinada (skew)
+
+::: {.incremental}
+- En índices, la sonrisa suele estar **inclinada** hacia abajo a la izquierda.
+- Los **puts** baratos OTM tienen $\sigma$ **aún mayor** (miedo a caídas).
+- Refleja **asimetría**: el mercado teme más las caídas que las subidas.
+- Merton con $\mu_J$ negativo **captura** esa inclinación.
+:::
+
+---
+
+## Cómo los saltos crean la sonrisa
+
+::: {.incremental}
+- Un modelo con saltos asigna **más probabilidad** a movimientos extremos.
+- Esa probabilidad extra se traduce en $\sigma$ implícita **más alta** para OTM.
+- A mayor $\lambda$, más **profunda** la sonrisa.
+- A mayor $\sigma_J$, más **ancha** la sonrisa.
+- El GBM ($\lambda=0$) produce una sonrisa **plana** (no explica el mercado).
+:::
+
+---
+
+## La superficie 3D
+
+En vez de una curva, vemos una **superficie**:
+
+::: {.incremental}
+- **Eje X:** strike (K), de 80 a 120.
+- **Eje Y:** madurez (T, en años), de 0.1 a 2.0.
+- **Eje Z:** volatilidad implícita.
+- Cada punto = la $\sigma$ implícita de una opción con ese strike y madurez.
+:::
+
+---
+
+## Qué buscar en la superficie
+
+::: {.incremental}
+- La **sonrisa** aparece al recorrer el eje de strike (deja-fondo de la U).
+- La **term structure:** cómo cambia la sonrisa con la madurez.
+- Cortes a madurez fija = las **curvas de sonrisa** clásicas.
+- Rota la superficie para verla **desde todos los ángulos**.
+:::
+
+---
+
+## El efecto de λ en la superficie
+
+::: {.incremental}
+- Sube $\lambda$ → la sonrisa se **profundiza**.
+- Con $\lambda=0$ (GBM): superficie casi **plana** en strike.
+- Con $\lambda$ alto: los extremos se **elevan** claramente.
+- **Predice antes de mover el slider:** ¿qué cambiará?
+:::
+
+---
+
+## Consigna metacognitiva (superficie)
+
+::: {.incremental}
+- **Planifiqué:** ¿qué espero que haga $\lambda$ en la forma?
+- **Monitoreé:** ¿la superficie confirmó mi predicción?
+- **Controlé:** si me equivoqué, ajusté $\lambda$ para comprobar.
+- **Evalúa:** ¿qué aprendí sobre cómo el mercado precifica saltos?
+:::
+
+---
+
+## Preguntas de discusión
+
+::: {.incremental}
+- ¿Dónde se observa **mayor** volatilidad implícita?
+- ¿Cómo cambia la forma cuando aumenta $\lambda$?
+- ¿Por qué los modelos que **ignoran** saltos subvaloran colas extremas?
+- ¿Qué implicación tiene esto para **proteger** una cartera?
+:::
+
+---
+
+## La lección de la volatilidad
+
+::: {.incremental}
+- Los saltos **no** solo se ven en precios: se ven en **opciones**.
+- La sonrisa es el mercado diciendo "**creo en saltos**".
+- Merton explica esa sonrisa; el GBM **no**.
+- Modelar continuidad en un mercado de saltos = **subestimar el riesgo**.
+:::
+
+---
+
+## Puente al juego
+
+> Ya viste los saltos en **trayectorias** y en **opciones**. Ahora los **vivirás**.
+
+::: {.incremental}
+- En el Bloque 5 serás el mercado: **predecirás** y **fallarás**.
+- El juego "El Mercado que Salta" hace el conflicto **tangible**.
+- Luego el debriefing **consolidará** lo aprendido.
+:::

@@ -1,0 +1,226 @@
+---
+title: "Merton Jump-Diffusion"
+subtitle: "Del conflicto cognitivo a la transferencia metacognitiva"
+author: "Universidad Externado de Colombia · DEFI 2"
+date: "Quinto semestre"
+format:
+  revealjs:
+    theme: ../styles/reveal-merton.scss
+    transition: fade
+    slide-number: true
+    chalkboard: false
+    preview-links: auto
+    footer: "Merton Jump-Diffusion · Clase de 120 minutos"
+    fig-cap-location: bottom
+    width: 1280
+    height: 720
+---
+
+## Bienvenida
+
+::: {.incremental}
+- **Asunto:** Saltos por Difusión de Merton (1976)
+- **Duración:** 120 minutos
+- **Formato:** teoría breve + demo interactiva + laboratorio + juego + debriefing
+- **Requisito previo:** nada más que curiosidad — el código corre en Colab
+:::
+
+---
+
+## La regla de oro de esta clase
+
+> La clase **no** enseña "qué es Merton".
+> Enseña **cómo regular el pensamiento cuando el modelo mental de continuidad colapsa**.
+
+::: {.incremental}
+- Merton es el **vehículo**.
+- La metacognición es el **destino**.
+- No memorices la ecuación: practica **planificar, monitorear, controlar y evaluar**.
+:::
+
+---
+
+## Qué NO es esta clase
+
+::: {.incremental}
+- No es una clase de **opciones y precios de Black-Scholes** (eso ya lo vieron).
+- No es un tutorial de **programación** (el código es un medio, no el fin).
+- No es un examen de **memorización de parámetros**.
+:::
+
+::: {.callout-note}
+Si al terminar recuerdas la ecuación pero no sabes detectar cuándo tu intuición falla, la clase **no** logró su propósito.
+:::
+
+---
+
+## Qué SÍ es esta clase
+
+::: {.incremental}
+- Un experimento para **romper** tu intuición de que los precios se mueven de forma continua.
+- Un taller para **practicar regulación metacognitiva** ante un modelo que falla.
+- Un puente para **transferir** esa habilidad a situaciones financieras reales.
+:::
+
+---
+
+## Objetivos de aprendizaje
+
+Al terminar podrás:
+
+::: {.incremental}
+1. Explicar por qué el GBM describe movimientos suaves pero **no** eventos de salto.
+2. Interpretar los componentes del proceso de Merton: difusión, Poisson, tamaño del salto, compensación del drift.
+3. Comparar trayectorias de GBM y Merton con parámetros controlados.
+4. Detectar evidencia visual de saltos en precios.
+5. Aplicar el ciclo **Planificar–Monitorear–Controlar–Evaluar**.
+6. Transferir la distinción continuidad/discontinuidad a una situación real.
+:::
+
+---
+
+## El marco pedagógico (por qué así)
+
+| Principio | Evidencia | En la clase |
+|---|---|---|
+| Conflicto cognitivo | Metaanálisis: 218 estudios, N=18.051, **g=1.10** | La intuición de continuidad colapsa al ver saltos |
+| Regulación metacognitiva | Wirth et al. (2025), N=777 | Ciclo P–M–C–E en cada actividad |
+| Transferencia lejana | Gobet & Sala (2023) | El destino es regular el pensamiento |
+| Debriefing estructurado | Modelo 3D (Kolb, 1984) | Sin debriefing, la simulación es un juego |
+
+---
+
+## Mapa de la clase (120 min)
+
+| Tiempo | Bloque | Qué pasa |
+|---:|---|---|
+| 0–15 | 1 | **Apertura:** el día que el modelo murió |
+| 15–45 | 2 | **Demo interactiva:** sliders de λ, μ_J, σ_J, σ |
+| 45–75 | 3 | **Laboratorio:** ¿GBM o Merton? |
+| 75–95 | 4 | **Volatilidad implícita:** la sonrisa |
+| 95–120 | 5–6 | **Juego + debriefing** metacognitivo |
+
+---
+
+## Cómo participar
+
+::: {.incremental}
+- **Predice antes de observar.** Anota tu expectativa; solo así el conflicto es real.
+- **Registra tus errores.** El momento en que fallas es el más valioso.
+- **Usa la tarjeta metacognitiva.** Planificar, monitorear, controlar, evaluar.
+- **Habla en el debriefing.** Lo que no se dice, no se consolida.
+:::
+
+---
+
+## Material disponible
+
+::: {.incremental}
+- **Sitio web:** todos los recursos, notebooks y PDFs.
+- **Colab:** los tres cuadernos, sin instalar nada.
+- **Demo interactiva:** sliders que funcionan en el navegador.
+- **Impresos:** hoja de trabajo, cartas del juego, tarjeta metacognitiva.
+:::
+
+---
+
+## Pregunta de apertura
+
+> Antes de ver nada: **¿cómo crees que se mueve el precio de una acción?**
+
+::: {.incremental}
+- ¿En pequeños pasos continuos, como un ruido aleatorio suave?
+- ¿O casi siempre tranquilo, con **momentos** de movimiento violento?
+- **Anota tu respuesta.** Volveremos a ella al final.
+:::
+
+---
+
+# Bloque 1 — El día que el modelo murió {.center}
+
+---
+
+## El contexto histórico
+
+::: {.incremental}
+- **1973:** Black y Scholes publican su fórmula de precios de opciones.
+- Asume que el precio sigue un **Movimiento Browniano Geométrico (GBM)**: movimiento **continuo**.
+- **1976:** Robert Merton escribe su tesis doctoral y ve algo que la fórmula ignora.
+- Los mercatos **no** siempre caminan: a veces **saltan**.
+:::
+
+---
+
+## Qué vio Merton
+
+::: {.incremental}
+- El GBM nunca produce un **salto** de un día para otro: solo pasos infinitesimales.
+- Pero existen días de **crisis**, **quiebras**, **anuncios** que mueven el precio de golpe.
+- Un modelo que asume continuidad **subestima** la probabilidad de movimientos extremos.
+- Merton extendió el modelo con un **proceso de Poisson** que introduce saltos.
+:::
+
+---
+
+## La idea fuerza
+
+> "Los precios no solo caminan. **Saltan.**"
+
+::: {.incremental}
+- **Caminar** = difusión continua (ruido aleatorio pequeño, cada instante).
+- **Saltar** = discontinuidad (de pronto, un movimiento grande).
+- Un modelo completo necesita **ambas** cosas.
+:::
+
+---
+
+## Qué verás en pantalla
+
+::: {.incremental}
+- Una trayectoria de precios que parece perfectamente normal y suave.
+- Hasta el día ~150, cuando ocurre un **salto de −12%**.
+- Un punto rojo marca la discontinuidad: **"¿Qué pasó aquí?"**
+:::
+
+::: {.callout-note}
+La animación está en el notebook del Bloque 1 (Colab). Aquí anticipamos la idea; la ejecutamos en la sesión.
+:::
+
+---
+
+## Consigna mientras observas
+
+Antes de ejecutar la animación, **planifica**:
+
+::: {.incremental}
+- ¿Qué esperas que pase en el resto del año?
+- **Monitorea:** ¿está ocurriendo lo que esperabas?
+- **Controla:** cuando aparezca el salto, ¿qué nueva hipótesis formulas?
+- **Evalúa:** ¿qué evidencia te hizo cambiar de opinión?
+:::
+
+---
+
+## La pregunta que colapsa la intuición
+
+> Si el precio **saltó** un −12% en un solo paso, ¿qué modelo lo describe mejor: uno de **continuidad** o uno con **saltos**?
+
+::: {.incremental}
+- Si respondes "continuidad", tu modelo mental acaba de fallar.
+- Ese **choque** es el objetivo del Bloque 1.
+- No lo resuelvas aún: primero sentimos el conflicto.
+:::
+
+---
+
+## Cierre del Bloque 1
+
+::: {.incremental}
+- Vimos que la **continuidad** es una suposición, no una verdad.
+- Merton (1976) propuso agregar un **término de salto**.
+- En el Bloque 2 manipularemos ese salto **con nuestras manos**.
+:::
+
+::: {.callout-tip}
+**Transición:** vamos de "ver colapsar el modelo" a "programar el colapso".
+:::

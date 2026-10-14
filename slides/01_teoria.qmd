@@ -1,0 +1,245 @@
+---
+title: "El proceso de Merton (1976)"
+subtitle: "Ecuación, componentes y saltos por difusión"
+author: "Universidad Externado de Colombia · DEFI 2"
+format:
+  revealjs:
+    theme: ../styles/reveal-merton.scss
+    transition: fade
+    slide-number: true
+    preview-links: auto
+    footer: "Merton Jump-Diffusion · Teoría"
+    fig-cap-location: bottom
+    width: 1280
+    height: 720
+---
+
+## El punto de partida: GBM
+
+El Movimiento Browniano Geométrico modela precios como un flujo **continuo**:
+
+$$\frac{dS_t}{S_t} = \mu\,dt + \sigma\,dW_t$$
+
+::: {.incremental}
+- $\mu$: **drift** — tendencia promedio del precio.
+- $\sigma$: **volatilidad** — qué de tanqueado es el camino.
+- $dW_t$: incremento de un **movimiento browniano** (ruido continuo).
+- Clave: $dW_t$ es **continuo** — nunca produce un salto de un día para otro.
+:::
+
+---
+
+## El problema del GBM
+
+::: {.incremental}
+- El GBM produce caminos **suaves**: cambios pequeños y frecuentes.
+- Pero los mercatos tienen **crisis**, **quiebras**, **anuncios** bruscos.
+- Un modelo puramente continuo **subestima** las colas de la distribución de retornos.
+- Fórmulas tipo Black-Scholes con GBM **subvaloran** las opciones OTM durante crisis.
+:::
+
+---
+
+## La extensión de Merton
+
+Merton (1976) agrega un **proceso de Poisson** que introduce saltos discontinuos:
+
+$$\frac{dS_t}{S_t} = (\mu - \lambda k)\,dt + \sigma\,dW_t + (J - 1)\,dN_t$$
+
+::: {.incremental}
+- Aparece $dN_t$: un **contador de Poisson**.
+- Aparece $J$: el **multiplicador** del salto.
+- Aparece $\lambda k$: una **compensación** del drift.
+- Desglosemos cada pieza.
+:::
+
+---
+
+## $dW_t$ — la difusión continua
+
+::: {.incremental}
+- Es el mismo término del GBM: **ruido** en cada instante.
+- $\sigma$ controla su amplitud.
+- Es **continuo**: cambios arbitrariamente pequeños.
+- Describe el movimiento "normal" del mercado día a día.
+:::
+
+---
+
+## $dN_t$ — el contador de Poisson
+
+::: {.incremental}
+- $dN_t$ toma valor **0** casi siempre (no hay salto).
+- $dN_t$ toma valor **1** en instantes **raros y aleatorios** (ocurre un salto).
+- La **frecuencia promedio** de saltos por año es $\lambda$.
+- Si $\lambda = 0$: no hay saltos, y el modelo **colapsa al GBM**.
+:::
+
+---
+
+## $\lambda$ — la frecuencia de saltos
+
+::: {.incremental}
+- $\lambda$ = número esperado de saltos por año.
+- Rango en esta clase: **0 a 5**.
+- $\lambda = 0$: puro GBM (continuo).
+- $\lambda = 1$: un salto esperado por año.
+- $\lambda = 5$: cinco saltos esperados — mercado muy propenso a shocks.
+:::
+
+---
+
+## $J$ — el multiplicador del salto
+
+::: {.incremental}
+- Cuando ocurre un salto, el precio se **multiplica** por $J$.
+- $J$ sigue una distribución **log-normal**.
+- $J > 0$ siempre (el precio no puede ser negativo tras el salto).
+- $J < 1$: el salto es **bajista**. $J > 1$: el salto es **alcista**.
+:::
+
+---
+
+## Log-normalidad del salto
+
+El logaritmo del multiplicador, $\ln J$, es normal con media $\mu_J$ y desviación $\sigma_J$:
+
+::: {.incremental}
+- $\mu_J$: **media del log del salto** (−0.3 a 0.3).
+  - Negativa → los saltos tienden a **bajar** el precio.
+  - Positiva → los saltos tienden a **subirlo**.
+- $\sigma_J$: **volatilidad del salto** (0 a 0.3).
+  - Mayor $\sigma_J$ → saltos más **variables** en tamaño.
+:::
+
+---
+
+## $\lambda k$ — la compensación del drift
+
+Con $k = E[J - 1]$ (el esperado del exceso del multiplicador):
+
+::: {.incremental}
+- Si los saltos pueden ser **negativos**, el drift efectivo se **reduce**: $(\mu - \lambda k)$.
+- Evita **arbitraje**: no puedes crear dinero gratis asumiendo saltos bajistas gratis.
+- A mayor $\lambda$ y más bajista $J$, mayor la **penalización** al drift.
+- Es el precio de **mantener coherente** el modelo.
+:::
+
+---
+
+## Los seis parámetros, de un vistazo
+
+| Parámetro | Símbolo | Rango | Controla |
+|---|---|---|---|
+| Frecuencia de saltos | $\lambda$ | 0–5 | Cuántos saltos por año |
+| Media del salto | $\mu_J$ | −0.3–0.3 | Dirección típica del salto |
+| Vol. del salto | $\sigma_J$ | 0–0.3 | Variabilidad del tamaño |
+| Vol. de difusión | $\sigma$ | 0.1–0.5 | Ruido continuo |
+| Drift | $\mu$ | 0.01–0.15 | Tendencia promedio |
+| Compensación | $\lambda k$ | derivado | Ajuste del drift por saltos |
+
+---
+
+## Difusión vs. salto: el contraste
+
+::: {.incremental}
+- **Difusión:** muchos pasos **pequeños**, continuos, predecibles en distribución.
+- **Salto:** pocos pasos **grandes**, discontinuos, inesperados en el tiempo.
+- El modelo de Merton **combina ambos**: difusión entre saltos, saltos ocasionales.
+- Un mercado real muestra **las dos caras**.
+:::
+
+---
+
+## Caso especial: λ = 0
+
+::: {.incremental}
+- Si $\lambda = 0$, no ocurren saltos.
+- La ecuación se reduce a: $\frac{dS_t}{S_t} = \mu\,dt + \sigma\,dW_t$.
+- Es exactamente el **GBM**.
+- **Insight:** GBM es un caso particular del modelo de Merton.
+:::
+
+::: {.callout-note}
+Cuando en la demo veas λ=0, estás mirando puro GBM. Al subir λ, introduces saltos.
+:::
+
+---
+
+## Volatilidad implícita: la promesa rota
+
+::: {.incremental}
+- Black-Scholes asume una $\sigma$ **constante** para todas las opciones.
+- En la práctica, cada opción tiene una $\sigma$ **diferente** al invertir la fórmula.
+- Al graficar $\sigma$ implícita vs. strike, aparece una **curva**, no una línea.
+- Los modelos de saltos **explican** esa curva; el GBM, no.
+:::
+
+---
+
+## La "sonrisa" (volatility smile)
+
+::: {.incremental}
+- Opciones **out-of-the-money** muestran $\sigma$ implícita **más alta**.
+- El mercado **cree** en saltos, así que paga más por protegerse de extremos.
+- A mayor $\lambda$, más **pronunciada** la sonrisa.
+- Es la firma de los saltos en los **precios de las opciones**.
+:::
+
+---
+
+## Calibración por máxima verosimilitud (MLE)
+
+::: {.incremental}
+- Dados datos de precios **observados**, ¿qué $\lambda, \mu_J, \sigma_J, \sigma$ los explican mejor?
+- **MLE:** elegimos los parámetros que **maximizan** la probabilidad de ver los datos.
+- Se estima la **log-verosimilitud** del modelo de Merton y se optimiza.
+- Herramientas: `JumpDiffSim` (R), librerías cuantitativas (Python).
+:::
+
+---
+
+## Dónde vive Merton en la práctica
+
+::: {.incremental}
+- **Precio de opciones** en presencia de saltos esperados (eventos de resultados).
+- **Gestión de riesgo:** colas más gruesas de lo que predice el GBM.
+- **Stress testing:** escenarios con $\lambda$ elevado.
+- **Estructuración de productos** con riesgo de crédito (default = salto).
+:::
+
+---
+
+## Errores comunes al interpretar Merton
+
+::: {.incremental}
+- Confundir $\lambda$ con el **tamaño** del salto (eso es $J$).
+- Creer que $\mu$ ya incluye la compensación (no: es $\mu - \lambda k$).
+- Asumir que $J$ puede ser negativo (no: log-normal, siempre $>0$).
+- Pensar que una sola trayectoria sin salto prueba $\lambda=0$ (no lo prueba).
+:::
+
+---
+
+## Síntesis de la teoría
+
+::: {.incremental}
+- El GBM asume **continuidad**; los mercatos **saltan**.
+- Merton agrega un **proceso de Poisson** ($dN_t$) con frecuencia $\lambda$.
+- El salto $J$ es **log-normal** (media $\mu_J$, vol $\sigma_J$).
+- $\lambda k$ **compensa** el drift.
+- Los saltos crean la **sonrisa** de volatilidad implícita.
+- Los parámetros se **calibran** por MLE.
+:::
+
+---
+
+## Puente a la demo
+
+> Ahora que conoces los seis parámetros, **manéjalos**.
+
+::: {.incremental}
+- En el Bloque 2 usarás sliders para $\lambda, \mu_J, \sigma_J, \sigma$.
+- Verás la trayectoria cambiar **en vivo**.
+- Predice antes de mover cada slider — ese es el ejercicio metacognitivo.
+:::

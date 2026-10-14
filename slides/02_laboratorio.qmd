@@ -1,0 +1,144 @@
+---
+title: "Laboratorio: ¿GBM o Merton?"
+subtitle: "Detectar discontinuidades en trayectorias de precios"
+author: "Universidad Externado de Colombia · DEFI 2"
+format:
+  revealjs:
+    theme: ../styles/reveal-merton.scss
+    transition: fade
+    slide-number: true
+    preview-links: auto
+    footer: "Merton Jump-Diffusion · Laboratorio"
+    fig-cap-location: bottom
+    width: 1280
+    height: 720
+---
+
+## Objetivo del laboratorio
+
+::: {.incremental}
+- Recibirás **6 gráficos** de precios: unos son GBM, otros Merton.
+- Los parámetros están **ocultos**.
+- Tu tarea: **clasificar** cada uno y justificar con **evidencia visual**.
+- No es adivinar — es **detectar** la firma del salto.
+:::
+
+---
+
+## Qué es la evidencia visual
+
+::: {.incremental}
+- **GBM:** camino suave; cambios pequeños y distribuidos.
+- **Merton:** un **escalón** brusco — el precio "teletransporta" un día.
+- Busca el **día exacto** del salto y la **magnitud** del movimiento.
+- Un solo salto grande separa a Merton de GBM, aunque el resto sea ruidoso.
+:::
+
+---
+
+## Instrucciones paso a paso
+
+::: {.incremental}
+1. Recibe la hoja de trabajo con los 6 gráficos.
+2. Para cada uno, anota: **¿GBM o Merton?**
+3. Si es Merton, señala el **día aproximado** del salto.
+4. Escribe **por qué** (qué viste que te convenció).
+5. En parejas, **compara** justificaciones antes de la clave.
+:::
+
+---
+
+## La hoja de trabajo
+
+::: {.incremental}
+- 6 paneles numerados (Gráfico 1 al 6).
+- Espacio para: clasificación, día del salto, justificación.
+- **No** hay parámetros visibles — deducir de la forma.
+- Impresa en `docs/hoja_trabajo_gbm_o_merton.pdf`.
+:::
+
+::: {.callout-note}
+Resiste la tentación de mirar al vecino. El valor está en **tu** razonamiento, no en la respuesta.
+:::
+
+---
+
+## Estrategia de detección
+
+::: {.incremental}
+- **Recorre el eje de días** de izquierda a derecha.
+- Pregúntate: ¿hay algún punto donde el precio **no** podría llegar por pasos pequeños?
+- Ese punto discontinuo = **candidato a salto**.
+- Si no encuentras ninguno, probablemente es **GBM**.
+:::
+
+---
+
+## Errores típicos de detección
+
+::: {.incremental}
+- Confundir una **ráchida** de volatilidad con un salto (la ráchida son varios pasos; el salto es **uno**).
+- Marcar un salto que en realidad son **varios** pasos consecutivos.
+- Dejarse llevar por el **final** del gráfico (un mal cierre no es un salto).
+- Ver saltos donde solo hay **ruido** con σ alta.
+:::
+
+---
+
+## El ejercicio metacognitivo
+
+Antes de la clave, completa la tarjeta:
+
+::: {.incremental}
+- **Planifiqué:** ¿qué buscaba para distinguir GBM de Merton?
+- **Monitoreé:** ¿qué encontré realmente en cada gráfico?
+- **Controlé:** cuando dudé, ¿qué hice para decidir?
+- **Evalúa:** ¿mi criterio fue confiable? ¿dónde me equivoqué?
+:::
+
+---
+
+## Calibración (extensión opcional)
+
+Para los que quieren ir más lejos:
+
+::: {.incremental}
+- Dados un gráfico y sus datos, estima $\lambda, \mu_J, \sigma_J, \sigma$ por **MLE**.
+- Herramientas: `JumpDiffSim` (R) o librerías cuantitativas (Python).
+- Objetivo **no** es precisión perfecta: es discutir **identificabilidad**.
+- Pregunta: ¿un solo salto basta para estimar $\lambda$? (Spoiler: apenas.)
+:::
+
+---
+
+## Discusión en grupo
+
+::: {.incremental}
+- ¿En qué gráficos **coincidieron** todos? ¿Cuáles fueron **controversiales**?
+- ¿Qué señal fue **más útil**: la magnitud del escalón o su aislamiento?
+- ¿Alguien cambió de opinión tras escuchar a otro? ¿Qué lo provocó?
+- ¿Cómo se relaciona esto con la **confianza** en tus modelos financieros?
+:::
+
+---
+
+## Síntesis del laboratorio
+
+::: {.incremental}
+- Aprendiste a **discriminar** continuidad de discontinuidad **visualmente**.
+- La firma de Merton es el **escalón aislado**, no la volatilidad general.
+- Practicaste **regular** tu criterio bajo incertidumbre.
+- Esa regulación es **transferible** a cualquier modelo financiero.
+:::
+
+---
+
+## Puente a la volatilidad
+
+> Viste saltos en **precios**. Ahora veremos su firma en las **opciones**.
+
+::: {.incremental}
+- Los saltos dejan rastro en la **volatilidad implícita**.
+- Ese rastro es la **sonrisa** que Black-Scholes no explica.
+- Bloque 4: la superficie 3D.
+:::

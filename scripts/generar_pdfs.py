@@ -7,10 +7,8 @@ Salidas:
 Nota: la conversión a PDF se realiza con convertir_docx_a_pdf.py.
 """
 import os
-import shutil
-import textwrap
 from docx import Document
-from docx.shared import Inches, Pt
+from docx.shared import Inches
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LAB_DIR = os.path.join(BASE, "assets", "laboratorio_graficos")
@@ -42,11 +40,10 @@ def create_hoja_trabajo():
         for _ in range(3):
             doc.add_paragraph("________________________________________________________________________")
 
-    doc.add_heading("Reflexión metacognitiva", level=1)
-    doc.add_paragraph("Planifiqué: ______________________________________________________________")
-    doc.add_paragraph("Monitoreé: _______________________________________________________________")
-    doc.add_paragraph("Controlé: ________________________________________________________________")
-    doc.add_paragraph("Evalué: _________________________________________________________________")
+    doc.add_heading("Preguntas de análisis", level=1)
+    doc.add_paragraph("¿Qué señal usé para distinguir GBM de Merton? _______________________________")
+    doc.add_paragraph("¿Qué parámetro del modelo (λ, μ_J, σ_J, σ) explicaría el gráfico? ____________")
+    doc.add_paragraph("¿Qué error cometí y cómo lo corregí? ______________________________________")
 
     return doc_to_docx(doc, os.path.join(PDF_DIR, "hoja_trabajo_gbm_o_merton.docx"))
 
@@ -79,7 +76,7 @@ def create_clave_respuestas():
 def create_reglas_juego():
     doc = Document()
     doc.add_heading("Instrucciones del juego — El Mercado que Salta", 0)
-    doc.add_paragraph("Materiales: 20 cartas, dados, calculadoras, tarjeta de regulación metacognitiva.")
+    doc.add_paragraph("Materiales: 20 cartas, dados y calculadoras.")
     doc.add_heading("Reglas", level=1)
     add_bullets(doc, [
         "Precio base: 100.",
@@ -88,65 +85,20 @@ def create_reglas_juego():
         "Anoten en qué carta su predicción falló.",
         "Al final, calculen el precio final con la fórmula simplificada.",
     ])
+    doc.add_heading("Cartas de difusión (17)", level=1)
+    doc.add_paragraph("Tira el dado. Si sale 1–3, el precio sube 2%. Si sale 4–6, baja 2%.")
+    doc.add_heading("Cartas de salto (3)", level=1)
+    doc.add_paragraph("¡SALTO! El precio cae 15%.")
     doc.add_heading("Fórmula simplificada", level=1)
     doc.add_paragraph("Precio final = Precio anterior × (1 + movimiento de la carta)")
-    doc.add_heading("Tarjeta de regulación metacognitiva", level=1)
-    doc.add_paragraph("Planifiqué: ¿qué esperaba antes de voltear la carta?")
-    doc.add_paragraph("Monitoreé: ¿qué ocurrió realmente?")
-    doc.add_paragraph("Controlé: ¿qué hice cuando mi predicción falló?")
-    doc.add_paragraph("Evalué: ¿qué haría diferente en la próxima ronda?")
+    doc.add_heading("Preguntas de análisis", level=1)
+    doc.add_paragraph("¿En qué carta se desvió mi predicción del precio real? ________________________")
+    doc.add_paragraph("¿Qué parámetro del modelo (λ o tamaño del salto) representaría ese error? _____")
     return doc_to_docx(doc, os.path.join(PDF_DIR, "reglas_juego_mercado_que_salta.docx"))
 
-def create_guion_debriefing():
+def create_taller_salto_real():
     doc = Document()
-    doc.add_heading("Guion del debriefing metacognitivo — Modelo 3D", 0)
-    doc.add_paragraph("Duración total: 20 minutos (Defusing 5, Discovering 8, Deepening 7).")
-    doc.add_heading("Defusing (5 min)", level=1)
-    add_bullets(doc, [
-        "¿Qué sintieron cuando su predicción falló?",
-        "¿Qué frase repitieron para explicar el error?",
-        "¿Cómo se sienten ahora respecto al modelo mental de continuidad?",
-    ])
-    doc.add_heading("Discovering (8 min)", level=1)
-    add_bullets(doc, [
-        "¿En qué momento exacto notaron que su intuición ya no servía?",
-        "¿Qué hicieron para corregir su predicción?",
-        "¿Qué papel jugaron los parámetros λ, μ_J, σ_J en su razonamiento?",
-    ])
-    doc.add_heading("Deepening (7 min)", level=1)
-    add_bullets(doc, [
-        "¿Dónde más ocurren ‘saltos’ en finanzas, economía o vida cotidiana?",
-        "¿Qué señal usarían para ajustar su modelo mental en el futuro?",
-        "Complete: ‘Cuando mi modelo mental de continuidad falla, yo…’",
-    ])
-    doc.add_heading("Cierre", level=1)
-    doc.add_paragraph("Proyectar el heatmap de confusión y conectar con la tarea de transferencia.")
-    return doc_to_docx(doc, os.path.join(PDF_DIR, "guion_debriefing_modelo_3D.docx"))
-
-def create_rubrica():
-    doc = Document()
-    doc.add_heading("Rúbrica de evaluación — Transferencia metacognitiva", 0)
-    table = doc.add_table(rows=1, cols=4)
-    hdr = table.rows[0].cells
-    hdr[0].text = "Criterio"
-    hdr[1].text = "Insuficiente (1)"
-    hdr[2].text = "Suficiente (2)"
-    hdr[3].text = "Sobresaliente (3)"
-    criterios = [
-        ("Detección de discontinuidad", "No identifica saltos", "Identifica saltos con apoyo", "Identifica y explica con evidencia"),
-        ("Uso de parámetros", "No relaciona parámetros", "Relaciona λ con frecuencia", "Explica λ, μ_J, σ_J con ejemplos"),
-        ("Regulación metacognitiva", "No describe su proceso", "Describe monitoreo básico", "Describe ciclo completo P-M-C-E"),
-        ("Transferencia", "No aplica a otros contextos", "Menciona otro contexto", "Propone caso real y señal de ajuste"),
-    ]
-    for c in criterios:
-        cells = table.add_row().cells
-        for j, v in enumerate(c):
-            cells[j].text = v
-    return doc_to_docx(doc, os.path.join(PDF_DIR, "rubrica_transferencia_metacognitiva.docx"))
-
-def create_tarea_transferencia():
-    doc = Document()
-    doc.add_heading("Tarea de transferencia — Identificar un ‘salto’ en la vida real", 0)
+    doc.add_heading("Taller — Identificar un ‘salto’ en la vida real", 0)
     doc.add_paragraph("Objetivo: aplicar la distinción entre continuidad y discontinuidad a una situación real.")
     doc.add_heading("Instrucciones", level=1)
     add_bullets(doc, [
@@ -154,32 +106,32 @@ def create_tarea_transferencia():
         "Describan el contexto y el momento del salto.",
         "Expliquen por qué un modelo de continuidad (GBM) no habría predicho el evento.",
         "Propongan cómo ajustar un modelo con saltos (por ejemplo, aumentar λ o cambiar μ_J).",
-        "Incluyan una reflexión metacognitiva: ¿qué señal usaron para detectar el salto?",
+        "Señalen qué dato observado los ayudó a identificar el salto.",
     ])
     doc.add_heading("Criterios de entrega", level=1)
     add_bullets(doc, [
         "Claridad del evento y del salto identificado.",
-        "Conexión conceptual con Merton Jump-Diffusion.",
-        "Reflexión metacognitiva explícita.",
+        "Conexión conceptual con el proceso de Merton.",
+        "Uso correcto de los parámetros λ, μ_J, σ_J.",
     ])
     return doc_to_docx(doc, os.path.join(PDF_DIR, "tarea_transferencia_salto_real.docx"))
 
-def create_plan_pdf():
-    src = os.path.join(BASE, "00_Plan_de_Clase_Merton.md")
+def create_agenda():
+    src = os.path.join(BASE, "docs", "00_plan_de_clase.md")
     doc = Document()
-    doc.add_heading("Plan de clase — Merton Jump-Diffusion", 0)
+    doc.add_heading("Agenda de clase — Saltos por Difusión de Merton", 0)
     with open(src, "r", encoding="utf-8") as f:
         lines = f.read().splitlines()
     for line in lines:
         if line.startswith("# "):
-            doc.add_heading(line[2:], level=1)
+            continue
         elif line.startswith("## "):
-            doc.add_heading(line[3:], level=2)
+            doc.add_heading(line[3:], level=1)
         elif line.startswith("### "):
-            doc.add_heading(line[4:], level=3)
+            doc.add_heading(line[4:], level=2)
         elif line.startswith("- "):
             doc.add_paragraph(line[2:], style="List Bullet")
-        elif line.strip() == "":
+        elif line.strip() == "" or line.startswith("|"):
             continue
         else:
             doc.add_paragraph(line)
@@ -190,12 +142,10 @@ def main():
         create_hoja_trabajo(),
         create_clave_respuestas(),
         create_reglas_juego(),
-        create_guion_debriefing(),
-        create_rubrica(),
-        create_tarea_transferencia(),
-        create_plan_pdf(),
+        create_taller_salto_real(),
+        create_agenda(),
     ]
-    print("PDFs generados (DOCX intermedios):")
+    print("DOCX intermedios generados:")
     for r in rutas:
         print(" -", r)
 

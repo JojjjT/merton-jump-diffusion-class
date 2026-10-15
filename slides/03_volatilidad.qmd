@@ -116,13 +116,13 @@ En vez de una curva, vemos una **superficie**:
 
 ---
 
-## Consigna metacognitiva (superficie)
+## Preguntas de análisis (superficie)
 
 ::: {.incremental}
-- **Planifiqué:** ¿qué espero que haga $\lambda$ en la forma?
-- **Monitoreé:** ¿la superficie confirmó mi predicción?
-- **Controlé:** si me equivoqué, ajusté $\lambda$ para comprobar.
-- **Evalúa:** ¿qué aprendí sobre cómo el mercado precifica saltos?
+- ¿Qué espero que haga $\lambda$ en la forma de la superficie?
+- ¿La superficie confirmó mi predicción?
+- Si me equivoqué, ajusté $\lambda$ para comprobar.
+- ¿Qué aprendí sobre cómo el mercado precifica saltos?
 :::
 
 ---
@@ -151,10 +151,10 @@ En vez de una curva, vemos una **superficie**:
 
 ## Puente al juego
 
-> Ya viste los saltos en **trayectorias** y en **opciones**. Ahora los **vivirás**.
+> Ya viste los saltos en **trayectorias** y en **opciones**. Ahora **predice**.
 
 ::: {.incremental}
-- En el Bloque 5 serás el mercado: **predecirás** y **fallarás**.
-- El juego "El Mercado que Salta" hace el conflicto **tangible**.
-- Luego el debriefing **consolidará** lo aprendido.
+- En el Bloque 5 serás el mercado: **predecirás** el precio.
+- El juego "El Mercado que Salta" hace tangible el riesgo de salto.
+- Luego cerramos con la **síntesis** de la clase.
 :::

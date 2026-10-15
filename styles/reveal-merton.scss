@@ -1,46 +1,43 @@
 /*-- scss:defaults --*/
 /*============================================================
-  Presentaciones Merton — revealjs, blanco académico.
-  Fondo blanco puro, títulos navy serif, acento dorado escaso.
+  Presentaciones Merton — revealjs, blanco y negro tipográfico.
+  Fondo blanco puro, tinta negra, escala de grises. Sin serif.
+  Sin ningún color.
  ============================================================*/
 
 $white: #ffffff;
-$navy: #1e3a5f;
-$gold: #8a6d1f;
-$ink: #16181d;
-$muted: #55606e;
-$surface: #f5f6f8;
-$border: #d8dce2;
+$black: #000000;
+$ink: #1a1a1a;
+$muted: #5a5a5a;
+$surface: #f5f5f5;
+$border: #d6d6d6;
 
-// Fondo de diapositiva blanco puro
 $slide-background-color: $white;
 $slide-background-border-color: $border;
 
-// Tipografía académica
-$heading-font-family: "Crimson Pro", Georgia, "Times New Roman", serif;
+/* Todo sans-serif */
+$heading-font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
 $body-font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
 $code-font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-$presentation-heading-color: $navy;
+$presentation-heading-color: $black;
 $presentation-heading-font-family: $heading-font-family;
 $presentation-font-color: $ink;
 $presentation-font-size-root: 28px;
 $presentation-line-height: 1.5;
 
-// Acento dorado en enlaces y énfasis
-$link-color: $navy;
-$link-hover-color: $gold;
-$selection-background-color: rgba(138, 109, 31, 0.22);
+$link-color: $black;
+$link-hover-color: $muted;
+$selection-background-color: rgba(0, 0, 0, 0.18);
 
-// Regla fina navy bajo el título de cada slide
 $rule-color: $border;
 
 /*-- scss:rules --*/
 
-/* Título de portada */
+/* Portada */
 .reveal {
   h1.title {
-    color: $navy;
+    color: $black;
     font-weight: 700;
     letter-spacing: -0.01em;
   }
@@ -57,7 +54,7 @@ $rule-color: $border;
 .reveal {
   section.center h2,
   section.title-slide h2 {
-    border-bottom: 1px solid $border;
+    border-bottom: 1px solid $black;
     padding-bottom: 0.3em;
   }
   .slide-number {
@@ -71,7 +68,7 @@ $rule-color: $border;
   }
 }
 
-/* Bullets: punto navy cuadrado, ritmo holgado */
+/* Bullets */
 .reveal ul, .reveal ol {
   margin-left: 0.4em;
 }
@@ -80,27 +77,28 @@ $rule-color: $border;
   line-height: 1.45;
 }
 .reveal li::marker {
-  color: $navy;
+  color: $black;
 }
 
-/* Énfasis académico: strong en near-black, no color */
+/* Énfasis: negro puro, nunca color */
 .reveal strong {
-  color: $navy;
+  color: $black;
   font-weight: 700;
 }
 .reveal em {
-  color: $gold;
+  color: $ink;
+  font-style: italic;
 }
 
-/* Tablas académicas: reglas horizontales, sin relleno pesado */
+/* Tablas: reglas horizontales, cabecera gris con tinta negra */
 .reveal table {
   border-collapse: collapse;
   font-size: 0.72em;
 }
 .reveal table th {
   background: $surface;
-  color: $navy;
-  border-bottom: 2px solid $navy;
+  color: $black;
+  border-bottom: 2px solid $black;
   font-family: $body-font-family;
   text-transform: none;
   padding: 0.5em 0.7em;
@@ -110,10 +108,10 @@ $rule-color: $border;
   padding: 0.45em 0.7em;
 }
 
-/* Bloques destacados */
+/* Blockquotes: gris con regla negra */
 .reveal blockquote {
   background: $surface;
-  border-left: 4px solid $gold;
+  border-left: 4px solid $black;
   padding: 0.5em 0.9em;
   box-shadow: none;
   font-style: normal;
@@ -133,12 +131,13 @@ $rule-color: $border;
   max-height: none;
 }
 
-/* Imágenes y figure captions */
+/* Imágenes y captions */
 .reveal img {
   max-width: 100%;
   max-height: 62vh;
   border: 1px solid $border;
   border-radius: 4px;
+  filter: grayscale(100%);
 }
 .reveal figcaption,
 .reveal .figure-caption {
@@ -146,16 +145,17 @@ $rule-color: $border;
   font-size: 0.58em;
 }
 
-/* Enlaces con target táctil mínimo 24px (auditoría) */
+/* Enlaces con target táctil mínimo 24px */
 .reveal p a,
 .reveal li a,
 .reveal a {
   display: inline-block;
   min-height: 24px;
   line-height: 24px;
+  color: $black;
 }
 
-/* Espaciado de metadatos de portada y controles, alineado a rejilla de 4px (auditoría) */
+/* Metadatos de portada y controles, rejilla de 4px */
 .reveal .quarto-title-author {
   margin-top: 8px;
   margin-bottom: 8px;
@@ -171,12 +171,25 @@ $rule-color: $border;
   padding-bottom: 4px;
 }
 
-/* Transición sobria (accesible, nada de zoom) */
 .reveal-viewport {
   background: $white;
 }
 
-/* Reduced motion: sin deslizamiento, solo cambio directo */
+/* Callouts en slides: blanco + borde negro */
+.reveal .callout {
+  background: $white !important;
+  border: 1px solid $black !important;
+  border-left-width: 4px !important;
+  color: $ink !important;
+}
+.reveal .callout-header {
+  color: $black !important;
+}
+.reveal .callout-icon {
+  display: none !important;
+}
+
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .reveal .slides section {
     transition: none !important;

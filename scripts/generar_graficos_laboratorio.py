@@ -30,13 +30,16 @@ def simular(tipo, seed, S0=100.0, mu=0.05, sigma=0.2, T=1.0, steps=252):
 
 def guardar_grafico(prices, nombre, titulo):
     fig, ax = plt.subplots(figsize=(10, 4))
-    ax.plot(prices, lw=1.5)
-    ax.set_title(titulo, fontsize=14)
-    ax.set_xlabel("Días")
-    ax.set_ylabel("Precio")
-    ax.grid(alpha=0.3)
+    ax.plot(prices, lw=1.5, color="black")
+    ax.set_title(titulo, fontsize=14, color="black")
+    ax.set_xlabel("Días", color="black")
+    ax.set_ylabel("Precio", color="black")
+    ax.grid(alpha=0.25, color="gray")
+    for spine in ax.spines.values():
+        spine.set_color("black")
+    ax.tick_params(colors="black")
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, nombre), dpi=150, bbox_inches="tight")
+    plt.savefig(os.path.join(OUTPUT_DIR, nombre), dpi=150, bbox_inches="tight", facecolor="white")
     plt.close()
 
 # Configuración: 3 GBM y 3 Merton

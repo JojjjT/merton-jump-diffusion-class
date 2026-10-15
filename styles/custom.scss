@@ -1,46 +1,46 @@
 /*============================================================
   Merton Jump-Diffusion — Sistema de diseño
-  Dirección: blanco académico. Serif en títulos, fondo blanco
-  puro, navy para estructura, un solo acento dorado profundo
-  usado con escasez. Nada decorativo.
+  Dirección: blanco y negro tipográfico. Fondo blanco puro,
+  tinta negra, escala de grises para estructura. Sans-serif
+  en todo. Sin ningún color. Nada decorativo.
  ============================================================*/
 
 /*-- scss:defaults --*/
 
-/*---- 1. Rampa: blanco dominante, near-black para lectura ----*/
+/*---- 1. Escala de grises (sin color alguno) ----*/
 $merton-bg:        #ffffff;   /* fondo blanco puro */
-$merton-surface:   #f5f6f8;   /* callouts, superficies suaves */
-$merton-border:    #d8dce2;   /* bordes, divisores */
-$merton-muted:     #55606e;   /* texto secundario */
-$merton-fg:        #16181d;   /* cuerpo (near-black) */
-$merton-strong:    #1e3a5f;   /* títulos: navy scholarly */
+$merton-surface:   #f5f5f5;   /* superficies suaves, callouts */
+$merton-surface-2: #ebebeb;   /* superficie elevada */
+$merton-border:    #d6d6d6;   /* bordes, divisores */
+$merton-muted:     #5a5a5a;   /* texto secundario */
+$merton-fg:        #1a1a1a;   /* cuerpo (casi negro) */
+$merton-strong:    #000000;   /* títulos: negro puro */
 
-/*---- 2. Un solo acento, escaso ----*/
-$merton-accent:    #8a6d1f;   /* dorado profundo (AA sobre blanco) */
+/*---- 2. Sin acento de color: el "énfasis" es negro puro ----*/
+$merton-accent:    #000000;
 
 /* Sobrescritura del tema Cosmo */
 $body-bg:          $merton-bg;
 $body-color:       $merton-fg;
-$primary:          $merton-strong;   /* la estructura manda, no el acento */
-$link-color:       $merton-strong;
-$link-hover-color: $merton-accent;
+$primary:          #000000;
+$link-color:       #000000;
+$link-hover-color: #000000;
 $headings-color:   $merton-strong;
 $border-color:     $merton-border;
 $card-bg:          $merton-bg;
 $card-border-color:$merton-border;
 
-/*---- 3. Tipografía: pareja académica (Crimson Pro + Atkinson Hyperlegible) ----*/
+/* Todo sans-serif */
 $font-family-sans-serif: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
-$font-family-serif: "Crimson Pro", Georgia, "Times New Roman", serif;
-$headings-font-family: $font-family-serif;
+$font-family-serif: $font-family-sans-serif;
+$headings-font-family: $font-family-sans-serif;
 
-$font-size-base: 1rem;          /* 16px cuerpo */
-/* escala: 13 / 16 / 21 / 28 / 37 */
-$font-size-sm:   0.8125rem;     /* 13 */
-$font-size-lg:   1.3125rem;     /* 21 */
-$h1-font-size:   2.3125rem;     /* 37 */
-$h2-font-size:   1.75rem;       /* 28 */
-$h3-font-size:   1.3125rem;     /* 21 */
+$font-size-base: 1rem;
+$font-size-sm:   0.8125rem;
+$font-size-lg:   1.3125rem;
+$h1-font-size:   2.3125rem;
+$h2-font-size:   1.75rem;
+$h3-font-size:   1.3125rem;
 
 $line-height-base: 1.6;
 
@@ -50,32 +50,56 @@ $border-radius-sm: 6px;
 
 /*-- scss:rules --*/
 
+/* Fuerza sans en todo (anula cualquier serif residual del tema) */
+body,
+h1, h2, h3, h4, h5, h6,
+.navbar, .sidebar, table, code, pre, blockquote {
+  font-family: $font-family-sans-serif !important;
+}
+
 .navbar-brand {
-  font-family: $headings-font-family;
   font-weight: 700;
 }
 
-/* Auditoría: el navbar es dark (data-bs-theme=dark) — el título
-   necesita color claro explícito, no el oscuro del body */
+/* El navbar es oscuro por defecto del tema: lo pasamos a negro puro */
+nav.navbar {
+  background: #000000 !important;
+}
 .navbar-title,
 .navbar-title a,
 .navbar-brand,
-.navbar-brand a {
-  color: #f8f9fa;
+.navbar-brand a,
+.navbar .nav-link,
+.navbar .nav-link.active {
+  color: #ffffff !important;
 
   &:hover {
     color: #ffffff;
   }
 }
-
-/* Medida de lectura: 65–75 caracteres por línea (selector real: main.content).
-   Atkinson Hyperlegible es ancha: 640px cae dentro de 75ch. */
-main.content,
-main.content article {
-  max-width: 640px;
+.navbar-toggler {
+  border-color: #ffffff;
+  color: #ffffff;
 }
 
-/* Auditoría: targets táctiles mínimos 24px */
+/* Medida de lectura: 65–75 caracteres por línea (px, no ch: el ancho del
+   dígito "0" de Atkinson es mayor que el char promedio) */
+main.content,
+main.content article {
+  max-width: 560px;
+}
+
+/* Todo enlace en contenido: target táctil mínimo 24px (inline-block
+   para que min-height funcione) */
+.content a,
+.callout a,
+.hero-block a {
+  display: inline-block;
+  min-height: 24px;
+  line-height: 24px;
+}
+
+/* Targets táctiles mínimos 24px */
 .sidebar-item-text.sidebar-link,
 .sidebar-item-toggle,
 .toc-action {
@@ -99,8 +123,14 @@ footer.footer a {
   min-height: 24px;
 }
 
-/* Auditoría: escala tipográfica fija en px (la raíz del tema no es
-   16px, así que los rem no colapsaban a la escala) — 13/16/21/28/37 */
+/* Sidebar activo: negro, sin color */
+.sidebar-item-text.sidebar-link.active,
+.sidebar-item-text.sidebar-link:hover {
+  color: #000000;
+  border-left: 3px solid #000000;
+}
+
+/* Escala tipográfica fija: 13/16/21/28/37 */
 .content p,
 .content li,
 .content td,
@@ -116,13 +146,13 @@ figcaption, .caption, .figure-caption, .table-caption { font-size: 13px; }
 .sidebar, footer.footer, .quarto-title-meta { font-size: 13px; }
 nav.navbar, .navbar-nav, .nav-link { font-size: 13px; }
 small, .small { font-size: 13px; }
-.content pre, .content code { font-size: 13.6px; }
+.content pre, .content code { font-size: 13px; }
 .toc-header, .toc-item, #toc-content { font-size: 13px; }
 h3 { font-size: 21px; }
 h2 { font-size: 28px; }
 .title, h1, .quarto-title-block .title { font-size: 37px; }
 
-/* Auditoría: spacing en múltiplos de 4px para los elementos nombrados */
+/* Spacing en múltiplos de 4px para elementos nombrados */
 nav.navbar.navbar-expand-lg { padding: 8px 16px; }
 .navbar-container.container-fluid { padding-left: 16px; padding-right: 16px; }
 a.nav-link, a.nav-link.active { padding-top: 8px; padding-bottom: 8px; }
@@ -131,15 +161,10 @@ a.navbar-brand { padding-top: 8px; padding-bottom: 8px; }
 ul.list-unstyled.mt-1 { margin-top: 8px !important; }
 div#quarto-search.type-overlay { padding: 8px; }
 
-/* Auditoría: normalizar la raíz para que los rem internos caigan en escala */
 html {
   font-size: 16px;
 }
 
-/* Excepción deliberada (documentada): los tamaños 11.4px (glifos
-   sub/superscript de MathJax) y los clamps residuales de Quarto
-   (14.9/15.7/18.1/22.3 en metadatos y títulos internos) no se
-   sobrescriben para no romper la semántica del renderizador. */
 .content p a {
   display: inline-block;
   min-height: 24px;
@@ -148,24 +173,53 @@ html {
 /* Tarjetas de la landing */
 .card {
   border-radius: $border-radius;
+  border: 1px solid $merton-border;
   transition: transform 160ms ease-out, box-shadow 160ms ease-out;
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       transform: scale(1.02);
-      box-shadow: 0 4px 16px rgba(26, 26, 46, 0.08);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     }
   }
 }
 
-/* Callouts: fondo neutro, acento solo en el borde izquierdo */
+/* Callouts: blanco con borde negro, sin color (anula tintes note/tip de Quarto) */
+.callout,
+.callout .callout-body,
+.callout .callout-header,
+.callout-note, .callout-tip, .callout-important, .callout-warning,
+.callout-caution, .callout-danger {
+  background: $merton-bg !important;
+  color: $merton-fg !important;
+}
 .callout {
   border-radius: $border-radius;
-  border-left-width: 4px;
+  border: 1px solid #000000 !important;
+  border-left-width: 4px !important;
+}
+.callout-header {
+  color: #000000 !important;
+}
+.callout-icon {
+  display: none !important;
+}
+/* Anula las variables de color de callout de Quarto */
+:root {
+  --quarto-callout-note-bg-color: #ffffff;
+  --quarto-callout-note-border-color: #000000;
+  --quarto-callout-tip-bg-color: #ffffff;
+  --quarto-callout-tip-border-color: #000000;
+  --quarto-callout-important-bg-color: #ffffff;
+  --quarto-callout-warning-bg-color: #ffffff;
+  --quarto-callout-caution-bg-color: #ffffff;
+  --quarto-callout-danger-bg-color: #ffffff;
 }
 
-.callout-note {
-  border-left-color: $merton-accent;
+/* Inputs de rango con target táctil mínimo 24px */
+input[type="range"] {
+  min-height: 24px;
+  accent-color: #000000;
 }
 
 /* Tablas */
@@ -178,19 +232,25 @@ th {
   font-size: $font-size-sm;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: $merton-muted;
+  color: #000000;
+  background: $merton-surface;
 }
 
-/* Código */
+/* Código en gris, sin color */
 code {
-  color: $merton-strong;
+  color: #000000;
   background-color: $merton-surface;
 }
+pre {
+  background: $merton-surface !important;
+  border: 1px solid $merton-border;
+}
+code .sourceCode { background: transparent; }
 
 /* Footer */
 footer.footer {
   background: $merton-bg;
-  border-top: 1px solid $merton-border;
+  border-top: 1px solid #000000;
   color: $merton-muted;
   font-size: $font-size-sm;
 }

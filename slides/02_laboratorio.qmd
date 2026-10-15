@@ -85,15 +85,15 @@ Resiste la tentación de mirar al vecino. El valor está en **tu** razonamiento,
 
 ---
 
-## El ejercicio metacognitivo
+## Preguntas de análisis
 
-Antes de la clave, completa la tarjeta:
+Antes de la clave, revisa tu razonamiento:
 
 ::: {.incremental}
-- **Planifiqué:** ¿qué buscaba para distinguir GBM de Merton?
-- **Monitoreé:** ¿qué encontré realmente en cada gráfico?
-- **Controlé:** cuando dudé, ¿qué hice para decidir?
-- **Evalúa:** ¿mi criterio fue confiable? ¿dónde me equivoqué?
+- ¿Qué señal usaste para distinguir GBM de Merton?
+- ¿Qué encontraste realmente en cada gráfico?
+- Cuando dudaste, ¿qué hice para decidir?
+- ¿Tu criterio fue confiable? ¿Dónde te equivocaste?
 :::
 
 ---
@@ -127,8 +127,7 @@ Para los que quieren ir más lejos:
 ::: {.incremental}
 - Aprendiste a **discriminar** continuidad de discontinuidad **visualmente**.
 - La firma de Merton es el **escalón aislado**, no la volatilidad general.
-- Practicaste **regular** tu criterio bajo incertidumbre.
-- Esa regulación es **transferible** a cualquier modelo financiero.
+- Esa distinción se aplica a **cualquier modelo financiero** con saltos.
 :::
 
 ---

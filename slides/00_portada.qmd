@@ -1,6 +1,6 @@
 ---
-title: "Merton Jump-Diffusion"
-subtitle: "Del conflicto cognitivo a la transferencia metacognitiva"
+title: "Saltos por Difusión de Merton"
+subtitle: "Teoría, simulaciones y material de clase"
 author: "Universidad Externado de Colombia · DEFI 2"
 date: "Quinto semestre"
 format:
@@ -8,7 +8,6 @@ format:
     theme: ../styles/reveal-merton.scss
     transition: fade
     slide-number: true
-    chalkboard: false
     preview-links: auto
     footer: "Merton Jump-Diffusion · Clase de 120 minutos"
     fig-cap-location: bottom
@@ -21,21 +20,19 @@ format:
 ::: {.incremental}
 - **Asunto:** Saltos por Difusión de Merton (1976)
 - **Duración:** 120 minutos
-- **Formato:** teoría breve + demo interactiva + laboratorio + juego + debriefing
-- **Requisito previo:** nada más que curiosidad — el código corre en Colab
+- **Formato:** teoría + simulaciones interactivas + laboratorio + juego de predicción
+- **Requisito previo:** conceptos básicos de GBM y opciones
 :::
 
 ---
 
-## La regla de oro de esta clase
-
-> La clase **no** enseña "qué es Merton".
-> Enseña **cómo regular el pensamiento cuando el modelo mental de continuidad colapsa**.
+## De qué se trata esta clase
 
 ::: {.incremental}
-- Merton es el **vehículo**.
-- La metacognición es el **destino**.
-- No memorices la ecuación: practica **planificar, monitorear, controlar y evaluar**.
+- Los precios **casi siempre** se mueven de forma continua.
+- Pero **de vez en cuando saltan**: crisis, quiebras, anuncios.
+- Merton (1976) modela **ambas cosas**: difusión continua + proceso de Poisson.
+- Verás, manipularás y predecirás **ese proceso** durante las 2 horas.
 :::
 
 ---
@@ -43,23 +40,13 @@ format:
 ## Qué NO es esta clase
 
 ::: {.incremental}
-- No es una clase de **opciones y precios de Black-Scholes** (eso ya lo vieron).
+- No es una clase de **Black-Scholes** (eso ya lo vieron).
 - No es un tutorial de **programación** (el código es un medio, no el fin).
 - No es un examen de **memorización de parámetros**.
 :::
 
 ::: {.callout-note}
-Si al terminar recuerdas la ecuación pero no sabes detectar cuándo tu intuición falla, la clase **no** logró su propósito.
-:::
-
----
-
-## Qué SÍ es esta clase
-
-::: {.incremental}
-- Un experimento para **romper** tu intuición de que los precios se mueven de forma continua.
-- Un taller para **practicar regulación metacognitiva** ante un modelo que falla.
-- Un puente para **transferir** esa habilidad a situaciones financieras reales.
+Si al terminar sabes interpretar cuándo los precios saltan y cómo modelarlo, la clase cumplió su propósito.
 :::
 
 ---
@@ -73,20 +60,22 @@ Al terminar podrás:
 2. Interpretar los componentes del proceso de Merton: difusión, Poisson, tamaño del salto, compensación del drift.
 3. Comparar trayectorias de GBM y Merton con parámetros controlados.
 4. Detectar evidencia visual de saltos en precios.
-5. Aplicar el ciclo **Planificar–Monitorear–Controlar–Evaluar**.
-6. Transferir la distinción continuidad/discontinuidad a una situación real.
+5. Relacionar los saltos con la **volatilidad implícita** y la sonrisa.
+6. Aplicar la distinción continuidad/discontinuidad a un caso real.
 :::
 
 ---
 
-## El marco pedagógico (por qué así)
+## Contenidos de la clase
 
-| Principio | Evidencia | En la clase |
-|---|---|---|
-| Conflicto cognitivo | Metaanálisis: 218 estudios, N=18.051, **g=1.10** | La intuición de continuidad colapsa al ver saltos |
-| Regulación metacognitiva | Wirth et al. (2025), N=777 | Ciclo P–M–C–E en cada actividad |
-| Transferencia lejana | Gobet & Sala (2023) | El destino es regular el pensamiento |
-| Debriefing estructurado | Modelo 3D (Kolb, 1984) | Sin debriefing, la simulación es un juego |
+::: {.incremental}
+- El proceso de Merton: ecuación y los **seis parámetros**.
+- Simulación interactiva: λ, μ_J, σ_J, σ **en vivo**.
+- Laboratorio visual: **¿GBM o Merton?**
+- Volatilidad implícita: la **sonrisa** y la superficie 3D.
+- Precio de opciones con saltos vs. Black-Scholes.
+- Juego de predicción: **"El Mercado que Salta"**.
+:::
 
 ---
 
@@ -94,32 +83,21 @@ Al terminar podrás:
 
 | Tiempo | Bloque | Qué pasa |
 |---:|---|---|
-| 0–15 | 1 | **Apertura:** el día que el modelo murió |
-| 15–45 | 2 | **Demo interactiva:** sliders de λ, μ_J, σ_J, σ |
+| 0–15 | 1 | **Apertura:** trayectoria con salto abrupto |
+| 15–45 | 2 | **Simulaciones:** sliders de λ, μ_J, σ_J, σ |
 | 45–75 | 3 | **Laboratorio:** ¿GBM o Merton? |
 | 75–95 | 4 | **Volatilidad implícita:** la sonrisa |
-| 95–120 | 5–6 | **Juego + debriefing** metacognitivo |
+| 95–120 | 5–6 | **Juego** de predicción + cierre |
 
 ---
 
-## Cómo participar
+## Cómo usar los recursos
 
 ::: {.incremental}
-- **Predice antes de observar.** Anota tu expectativa; solo así el conflicto es real.
-- **Registra tus errores.** El momento en que fallas es el más valioso.
-- **Usa la tarjeta metacognitiva.** Planificar, monitorear, controlar, evaluar.
-- **Habla en el debriefing.** Lo que no se dice, no se consolida.
-:::
-
----
-
-## Material disponible
-
-::: {.incremental}
-- **Sitio web:** todos los recursos, notebooks y PDFs.
+- **Sitio web:** simulaciones, demos y material para imprimir.
+- **Herramientas:** cuatro simuladores en el navegador (JS puro, sin instalación).
 - **Colab:** los tres cuadernos, sin instalar nada.
-- **Demo interactiva:** sliders que funcionan en el navegador.
-- **Impresos:** hoja de trabajo, cartas del juego, tarjeta metacognitiva.
+- **Impresos:** hoja de trabajo, cartas del juego.
 :::
 
 ---
@@ -136,7 +114,7 @@ Al terminar podrás:
 
 ---
 
-# Bloque 1 — El día que el modelo murió {.center}
+# Bloque 1 — Cuando el precio no camina, salta {.center}
 
 ---
 
@@ -145,7 +123,7 @@ Al terminar podrás:
 ::: {.incremental}
 - **1973:** Black y Scholes publican su fórmula de precios de opciones.
 - Asume que el precio sigue un **Movimiento Browniano Geométrico (GBM)**: movimiento **continuo**.
-- **1976:** Robert Merton escribe su tesis doctoral y ve algo que la fórmula ignora.
+- **1976:** Robert Merton publica su extensión y ve algo que la fórmula ignora.
 - Los mercatos **no** siempre caminan: a veces **saltan**.
 :::
 
@@ -179,7 +157,7 @@ Al terminar podrás:
 ::: {.incremental}
 - Una trayectoria de precios que parece perfectamente normal y suave.
 - Hasta el día ~150, cuando ocurre un **salto de −12%**.
-- Un punto rojo marca la discontinuidad: **"¿Qué pasó aquí?"**
+- Un punto marcado señala la discontinuidad: **"¿Qué pasó aquí?"**
 :::
 
 ::: {.callout-note}
@@ -188,27 +166,14 @@ La animación está en el notebook del Bloque 1 (Colab). Aquí anticipamos la id
 
 ---
 
-## Consigna mientras observas
-
-Antes de ejecutar la animación, **planifica**:
-
-::: {.incremental}
-- ¿Qué esperas que pase en el resto del año?
-- **Monitorea:** ¿está ocurriendo lo que esperabas?
-- **Controla:** cuando aparezca el salto, ¿qué nueva hipótesis formulas?
-- **Evalúa:** ¿qué evidencia te hizo cambiar de opinión?
-:::
-
----
-
-## La pregunta que colapsa la intuición
+## La pregunta central
 
 > Si el precio **saltó** un −12% en un solo paso, ¿qué modelo lo describe mejor: uno de **continuidad** o uno con **saltos**?
 
 ::: {.incremental}
-- Si respondes "continuidad", tu modelo mental acaba de fallar.
-- Ese **choque** es el objetivo del Bloque 1.
-- No lo resuelvas aún: primero sentimos el conflicto.
+- Si respondes "continuidad", el modelo simple **no basta**.
+- Ese choque entre intuición y realidad es el punto de partida.
+- En el Bloque 2 programaremos ese salto **con nuestras manos**.
 :::
 
 ---
@@ -218,9 +183,9 @@ Antes de ejecutar la animación, **planifica**:
 ::: {.incremental}
 - Vimos que la **continuidad** es una suposición, no una verdad.
 - Merton (1976) propuso agregar un **término de salto**.
-- En el Bloque 2 manipularemos ese salto **con nuestras manos**.
+- En el Bloque 2 manipularemos los parámetros del salto.
 :::
 
 ::: {.callout-tip}
-**Transición:** vamos de "ver colapsar el modelo" a "programar el colapso".
+**Transición:** vamos de "ver el colapso del modelo" a "programar el colapso".
 :::

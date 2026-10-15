@@ -1,0 +1,497 @@
+---
+title: "Herramientas interactivas"
+subtitle: "Cuatro simuladores que corren en tu navegador, sin servidor"
+---
+
+::: {.callout-note}
+## Sin instalación
+Estas herramientas usan JavaScript puro: se ejecutan **en tu navegador** al abrir la página. No necesitas Python, Colab ni servidor. Mueve los controles y observa cómo cambia el proceso de Merton en vivo.
+:::
+
+<style>
+  .tool {
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+    background: #fff;
+  }
+  .tool h3 { margin-top: 0; color: #000; }
+  .controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px 24px;
+    margin-bottom: 16px;
+  }
+  .ctrl label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 4px;
+  }
+  .ctrl label span { font-weight: 400; color: #5a5a5a; }
+  .ctrl input[type=range] { width: 100%; accent-color: #000; }
+  .ctrl input[type=number] {
+    width: 100%; padding: 6px 8px; border: 1px solid #d6d6d6;
+    border-radius: 4px; font-size: 13px; color: #000; background: #fff;
+    min-height: 32px;
+  }
+  .btn {
+    background: #000; color: #fff; border: none; border-radius: 6px;
+    padding: 10px 18px; font-size: 13px; font-weight: 700; cursor: pointer;
+    min-height: 44px;
+  }
+  .btn:hover { background: #333; }
+  .btn:focus-visible { outline: 3px solid #000; outline-offset: 2px; }
+  .readout {
+    font-family: ui-monospace, Menlo, monospace; font-size: 13px;
+    color: #000; background: #f5f5f5; border: 1px solid #d6d6d6;
+    border-radius: 6px; padding: 10px 14px; margin-top: 12px;
+    line-height: 1.7; overflow-wrap: anywhere; max-width: 72ch;
+  }
+  canvas {
+    display: block; width: 100%; border: 1px solid #d6d6d6;
+    border-radius: 4px; background: #fff;
+  }
+  .legend { font-size: 13px; color: #5a5a5a; margin-top: 8px; max-width: 470px; overflow-wrap: anywhere; }
+  .legend b { color: #000; }
+  .legend sub { font-size: 11px; }
+  /* Párrafos de la página: medida de lectura (px, no ch) */
+  .content p, .callout p { max-width: 540px; }
+  /* Escala fija del sitio: 13/16/21/28/37 */
+  .tool label, .tool .ctrl label { font-size: 13px; }
+  .tool .btn { font-size: 13px; }
+</style>
+
+---
+
+## 1 · Monte Carlo de trayectorias
+
+Genera trayectorias de precios bajo el proceso de Merton. Sube **λ** y observa aparecer saltos; λ=0 reproduce el GBM puro.
+
+::: {.tool}
+<div class="controls">
+  <div class="ctrl">
+    <label>λ (saltos/año) <span id="mc-lam-v">1.0</span></label>
+    <input type="range" id="mc-lam" min="0" max="5" step="0.1" value="1">
+  </div>
+  <div class="ctrl">
+    <label>μ_J (media del salto) <span id="mc-muj-v">-0.08</span></label>
+    <input type="range" id="mc-muj" min="-0.3" max="0.3" step="0.01" value="-0.08">
+  </div>
+  <div class="ctrl">
+    <label>σ_J (vol del salto) <span id="mc-sigj-v">0.12</span></label>
+    <input type="range" id="mc-sigj" min="0" max="0.3" step="0.01" value="0.12">
+  </div>
+  <div class="ctrl">
+    <label>σ (difusión) <span id="mc-sig-v">0.20</span></label>
+    <input type="range" id="mc-sig" min="0.1" max="0.5" step="0.01" value="0.20">
+  </div>
+</div>
+<button class="btn" id="mc-btn">Generar nueva trayectoria</button>
+<canvas id="mc-canvas" width="900" height="340"></canvas>
+<div class="readout" id="mc-out"></div>
+<div class="legend">Línea negra sólida = trayectoria. Puntos ▪ = instantes de salto (dN<sub>t</sub>=1).</div>
+:::
+
+---
+
+## 2 · Distribución de retornos: GBM vs Merton
+
+Compara la distribución de retornos terminales. El modelo de Merton produce **colas más gruesas**: más eventos extremos de los que el GBM predice.
+
+::: {.tool}
+<div class="controls">
+  <div class="ctrl">
+    <label>λ (saltos/año) <span id="dist-lam-v">2.0</span></label>
+    <input type="range" id="dist-lam" min="0" max="5" step="0.1" value="2">
+  </div>
+  <div class="ctrl">
+    <label>μ_J (media del salto) <span id="dist-muj-v">-0.12</span></label>
+    <input type="range" id="dist-muj" min="-0.3" max="0.3" step="0.01" value="-0.12">
+  </div>
+  <div class="ctrl">
+    <label>σ_J (vol del salto) <span id="dist-sigj-v">0.15</span></label>
+    <input type="range" id="dist-sigj" min="0" max="0.3" step="0.01" value="0.15">
+  </div>
+  <div class="ctrl">
+    <label>σ (difusión) <span id="dist-sig-v">0.20</span></label>
+    <input type="range" id="dist-sig" min="0.1" max="0.5" step="0.01" value="0.20">
+  </div>
+</div>
+<button class="btn" id="dist-btn">Recalcular (5000 muestras)</button>
+<canvas id="dist-canvas" width="900" height="340"></canvas>
+<div class="readout" id="dist-out"></div>
+<div class="legend"><b>Sólido</b> = Merton · <b>discontinuo</b> = GBM. Observa los extremos (colas).</div>
+:::
+
+---
+
+## 3 · Precio de opciones: Merton vs Black-Scholes
+
+Precifica una call europea con saltos (serie de Merton) y compárala con Black-Scholes. Con λ>0 el precio se aleja del modelo continuo.
+
+::: {.tool}
+<div class="controls">
+  <div class="ctrl"><label>Precio spot S₀ <span id="op-s-v">100</span></label>
+    <input type="number" id="op-s" value="100" min="1" step="1"></div>
+  <div class="ctrl"><label>Strike K <span id="op-k-v">100</span></label>
+    <input type="number" id="op-k" value="100" min="1" step="1"></div>
+  <div class="ctrl"><label>Madurez T (años) <span id="op-t-v">1.0</span></label>
+    <input type="range" id="op-t" min="0.1" max="3" step="0.1" value="1"></div>
+  <div class="ctrl"><label>Vol sin saltos σ <span id="op-sig-v">0.20</span></label>
+    <input type="range" id="op-sig" min="0.05" max="0.6" step="0.01" value="0.20"></div>
+  <div class="ctrl"><label>λ (saltos/año) <span id="op-lam-v">1.0</span></label>
+    <input type="range" id="op-lam" min="0" max="5" step="0.1" value="1"></div>
+  <div class="ctrl"><label>μ_J <span id="op-muj-v">-0.10</span></label>
+    <input type="range" id="op-muj" min="-0.3" max="0.3" step="0.01" value="-0.10"></div>
+  <div class="ctrl"><label>σ_J <span id="op-sigj-v">0.15</span></label>
+    <input type="range" id="op-sigj" min="0" max="0.3" step="0.01" value="0.15"></div>
+  <div class="ctrl"><label>Libre de riesgo r <span id="op-r-v">0.03</span></label>
+    <input type="range" id="op-r" min="0" max="0.1" step="0.005" value="0.03"></div>
+</div>
+<div class="readout" id="op-out"></div>
+<div class="legend">La call de Merton se pricea como una suma de componentes de salto (Black-Scholes desplazada). Con λ=0 colapsa exactamente a Black-Scholes.</div>
+:::
+
+---
+
+## 4 · Proceso de Poisson
+
+Visualiza cuándo ocurren los saltos. λ controla la frecuencia promedio: con λ alto, más llegadas en el mismo horizonte.
+
+::: {.tool}
+<div class="controls">
+  <div class="ctrl">
+    <label>λ (saltos/año) <span id="pois-lam-v">3.0</span></label>
+    <input type="range" id="pois-lam" min="0.5" max="10" step="0.5" value="3">
+  </div>
+  <div class="ctrl">
+    <label>Horizonte (años) <span id="pois-T-v">2.0</span></label>
+    <input type="range" id="pois-T" min="0.5" max="5" step="0.5" value="2">
+  </div>
+</div>
+<button class="btn" id="pois-btn">Nueva realización</button>
+<canvas id="pois-canvas" width="900" height="200"></canvas>
+<div class="readout" id="pois-out"></div>
+<div class="legend">Cada ▪ es un instante donde dN<sub>t</sub>=1 (llegada de Poisson).</div>
+:::
+
+<script>
+// ============================================================
+// Utilidades numéricas (JavaScript puro, sin dependencias)
+// ============================================================
+function boxMuller() {
+  let u = 0, v = 0;
+  while (u === 0) u = Math.random();
+  while (v === 0) v = Math.random();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+// Poisson Knuth (λ·dt pequeño en este uso)
+function poisson(lambda) {
+  const L = Math.exp(-lambda);
+  let k = 0, p = 1;
+  do { k++; p *= Math.random(); } while (p > L);
+  return k - 1;
+}
+function fmt(x, n = 3) { return Number(x).toFixed(n); }
+
+// Estilo de lienzo B/N
+function ctx2d(id) {
+  const c = document.getElementById(id);
+  const dpr = window.devicePixelRatio || 1;
+  const w = c.clientWidth || c.width;
+  const h = parseInt(c.getAttribute('height'), 10);
+  c.width = w * dpr; c.height = h * dpr;
+  c.style.height = h + 'px';
+  const ctx = c.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, w, h);
+  return { ctx, w, h };
+}
+
+// ============================================================
+// 1 · Monte Carlo de trayectorias
+// ============================================================
+function mcSimular() {
+  const lam = +document.getElementById('mc-lam').value;
+  const muJ = +document.getElementById('mc-muj').value;
+  const sigJ = +document.getElementById('mc-sigj').value;
+  const sig = +document.getElementById('mc-sig').value;
+  const mu = 0.05, S0 = 100, T = 1, steps = 250;
+  const dt = T / steps;
+  const k = Math.exp(muJ + 0.5 * sigJ * sigJ) - 1;
+
+  const prices = [S0];
+  const jumpIdx = [];
+  let saltos = 0;
+  for (let t = 1; t <= steps; t++) {
+    const Z = boxMuller();
+    const N = poisson(lam * dt);
+    let p = prices[t - 1] * Math.exp((mu - lam * k - 0.5 * sig * sig) * dt + sig * Math.sqrt(dt) * Z);
+    if (N > 0) {
+      for (let j = 0; j < N; j++) {
+        const lnJ = muJ + sigJ * boxMuller();
+        p *= Math.exp(lnJ);
+      }
+      saltos += N;
+      jumpIdx.push(t);
+    }
+    prices.push(p);
+  }
+
+  const { ctx, w, h } = ctx2d('mc-canvas');
+  const pad = 36;
+  const min = Math.min(...prices) * 0.97;
+  const max = Math.max(...prices) * 1.03;
+  const X = i => pad + (i / steps) * (w - pad * 2);
+  const Y = p => h - pad - ((p - min) / (max - min)) * (h - pad * 2);
+
+  // Ejes
+  ctx.strokeStyle = '#d6d6d6'; ctx.lineWidth = 1;
+  ctx.strokeRect(pad, pad, w - pad * 2, h - pad * 2);
+  ctx.fillStyle = '#5a5a5a'; ctx.font = '12px sans-serif';
+  ctx.fillText('100', 6, Y(100) + 4);
+  ctx.strokeStyle = '#d6d6d6'; ctx.setLineDash([4, 4]);
+  ctx.beginPath(); ctx.moveTo(pad, Y(100)); ctx.lineTo(w - pad, Y(100)); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Trayectoria
+  ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  prices.forEach((p, i) => { i === 0 ? ctx.moveTo(X(i), Y(p)) : ctx.lineTo(X(i), Y(p)); });
+  ctx.stroke();
+
+  // Puntos de salto
+  ctx.fillStyle = '#000';
+  jumpIdx.forEach(i => {
+    ctx.beginPath();
+    ctx.arc(X(i), Y(prices[i]), 4, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  const ret = (prices[steps] / S0 - 1) * 100;
+  document.getElementById('mc-out').innerHTML =
+    `λ=${fmt(lam,1)} · μ_J=${fmt(muJ,2)} · σ_J=${fmt(sigJ,2)} · σ=${fmt(sig,2)} &nbsp;|&nbsp; ` +
+    `<b>saltos observados: ${saltos}</b> &nbsp;|&nbsp; retorno final: ${fmt(ret,1)}%`;
+}
+
+// ============================================================
+// 2 · Distribución de retornos GBM vs Merton
+// ============================================================
+function distCalc() {
+  const lam = +document.getElementById('dist-lam').value;
+  const muJ = +document.getElementById('dist-muj').value;
+  const sigJ = +document.getElementById('dist-sigj').value;
+  const sig = +document.getElementById('dist-sig').value;
+  const mu = 0.05, T = 1, n = 5000;
+  const k = Math.exp(muJ + 0.5 * sigJ * sigJ) - 1;
+
+  const gbm = [], mert = [];
+  for (let i = 0; i < n; i++) {
+    const Z = boxMuller();
+    gbm.push(Math.exp((mu - 0.5 * sig * sig) * T + sig * Math.sqrt(T) * Z) - 1);
+    const N = poisson(lam * T);
+    let r = (mu - lam * k - 0.5 * sig * sig) * T + sig * Math.sqrt(T) * Z;
+    for (let j = 0; j < N; j++) r += muJ + sigJ * boxMuller();
+    mert.push(Math.exp(r) - 1);
+  }
+
+  const lo = -0.6, hi = 0.6, bins = 41;
+  const hist = arr => {
+    const b = new Array(bins).fill(0);
+    arr.forEach(v => {
+      const idx = Math.floor((v - lo) / (hi - lo) * bins);
+      if (idx >= 0 && idx < bins) b[idx]++;
+    });
+    return b;
+  };
+  const hg = hist(gbm), hm = hist(mert);
+  const maxc = Math.max(...hg, ...hm);
+
+  const { ctx, w, h } = ctx2d('dist-canvas');
+  const pad = 36;
+  const X = i => pad + (i / (bins - 1)) * (w - pad * 2);
+  const Y = c => h - pad - (c / maxc) * (h - pad * 2);
+  const bw = (w - pad * 2) / bins;
+
+  ctx.strokeStyle = '#d6d6d6'; ctx.strokeRect(pad, pad, w - pad * 2, h - pad * 2);
+
+  // Merton: barras sólidas negras
+  ctx.fillStyle = 'rgba(0,0,0,0.75)';
+  hm.forEach((c, i) => ctx.fillRect(pad + i * bw, Y(c), bw * 0.9, h - pad - Y(c)));
+
+  // GBM: línea discontinua
+  ctx.strokeStyle = '#000'; ctx.lineWidth = 2; ctx.setLineDash([6, 4]);
+  ctx.beginPath();
+  hg.forEach((c, i) => { i === 0 ? ctx.moveTo(X(i), Y(c)) : ctx.lineTo(X(i), Y(c)); });
+  ctx.stroke(); ctx.setLineDash([]);
+
+  // Marca el 0
+  ctx.fillStyle = '#5a5a5a'; ctx.font = '12px sans-serif';
+  const x0 = pad + ((0 - lo) / (hi - lo)) * (w - pad * 2);
+  ctx.fillText('0%', x0 - 8, h - 12);
+
+  // Percentil 5 (cola izquierda) de cada uno
+  const q5 = arr => { const s = [...arr].sort((a, b) => a - b); return s[Math.floor(0.05 * s.length)]; };
+  document.getElementById('dist-out').innerHTML =
+    `λ=${fmt(lam,1)} · σ=${fmt(sig,2)} &nbsp;|&nbsp; ` +
+    `percentil 5% (cola izq.): <b>Merton ${fmt(q5(mert)*100,1)}%</b> vs GBM ${fmt(q5(gbm)*100,1)}%`;
+}
+
+// ============================================================
+// 3 · Precio de opciones Merton vs Black-Scholes
+// ============================================================
+function ncdf(x) {
+  // Aproximación de Abramowitz & Stegun
+  const t = 1 / (1 + 0.2316419 * Math.abs(x));
+  const d = 0.3989423 * Math.exp(-x * x / 2);
+  let p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+  return x > 0 ? 1 - p : p;
+}
+function bsCall(S, K, T, r, sig) {
+  const d1 = (Math.log(S / K) + (r + 0.5 * sig * sig) * T) / (sig * Math.sqrt(T));
+  const d2 = d1 - sig * Math.sqrt(T);
+  return S * ncdf(d1) - K * Math.exp(-r * T) * ncdf(d2);
+}
+function mertonCall(S, K, T, r, sig, lam, muJ, sigJ) {
+  if (lam === 0) return bsCall(S, K, T, r, sig);
+  const k = Math.exp(muJ + 0.5 * sigJ * sigJ) - 1;
+  const drift = r - lam * k;
+  const maxN = 60;
+  let price = 0;
+  // Serie de Merton: suma de componentes Poisson ponderados
+  for (let n = 0; n <= maxN; n++) {
+    // P(N=n) bajo Poisson(λT) en log para estabilidad
+    let logP = -lam * T + n * Math.log(lam * T + 1e-12);
+    for (let i = 2; i <= n; i++) logP -= Math.log(i);
+    const Pn = Math.exp(logP);
+    if (Pn < 1e-14) continue;
+    const sigN2 = sig * sig + n * sigJ * sigJ / T;
+    const sigN = Math.sqrt(sigN2);
+    const muAdj = drift + n * (muJ + 0.5 * sigJ * sigJ) / T;
+    const d1 = (Math.log(S / K) + (muAdj + 0.5 * sigN2) * T) / (sigN * Math.sqrt(T));
+    const d2 = d1 - sigN * Math.sqrt(T);
+    price += Pn * (S * ncdf(d1) - K * Math.exp(-r * T) * ncdf(d2));
+  }
+  return price;
+}
+function opCalc() {
+  const S = +document.getElementById('op-s').value;
+  const K = +document.getElementById('op-k').value;
+  const T = +document.getElementById('op-t').value;
+  const sig = +document.getElementById('op-sig').value;
+  const lam = +document.getElementById('op-lam').value;
+  const muJ = +document.getElementById('op-muj').value;
+  const sigJ = +document.getElementById('op-sigj').value;
+  const r = +document.getElementById('op-r').value;
+
+  const bs = bsCall(S, K, T, r, sig);
+  const me = mertonCall(S, K, T, r, sig, lam, muJ, sigJ);
+  const diff = me - bs;
+  const pct = bs > 0 ? (diff / bs) * 100 : 0;
+
+  document.getElementById('op-out').innerHTML =
+    `Black-Scholes (λ=0): <b>${fmt(bs,3)}</b> &nbsp;|&nbsp; ` +
+    `Merton (λ=${fmt(lam,1)}): <b>${fmt(me,3)}</b> &nbsp;|&nbsp; ` +
+    `diferencia: <b>${fmt(diff,3)}</b> (${fmt(pct,1)}%)`;
+}
+
+// ============================================================
+// 4 · Proceso de Poisson
+// ============================================================
+function poisDraw() {
+  const lam = +document.getElementById('pois-lam').value;
+  const T = +document.getElementById('pois-T').value;
+
+  // Llegadas exponenciales independientes con tasa λ
+  const llegadas = [];
+  let t = 0;
+  while (true) {
+    t += -Math.log(1 - Math.random()) / lam;
+    if (t > T) break;
+    llegadas.push(t);
+  }
+
+  const { ctx, w, h } = ctx2d('pois-canvas');
+  const pad = 30;
+  const y = h / 2;
+  // Eje temporal
+  ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(w - pad, y); ctx.stroke();
+
+  // Ticks
+  ctx.fillStyle = '#5a5a5a'; ctx.font = '12px sans-serif';
+  for (let a = 0; a <= T; a++) {
+    const x = pad + (a / T) * (w - pad * 2);
+    ctx.strokeStyle = '#d6d6d6'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(x, y - 8); ctx.lineTo(x, y + 8); ctx.stroke();
+    ctx.fillText(a + 'a', x - 6, y + 26);
+  }
+
+  // Llegadas
+  ctx.fillStyle = '#000';
+  llegadas.forEach(tt => {
+    const x = pad + (tt / T) * (w - pad * 2);
+    ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(x, y - 22); ctx.lineTo(x, y - 8); ctx.stroke();
+  });
+
+  document.getElementById('pois-out').innerHTML =
+    `λ=${fmt(lam,1)} · horizonte ${fmt(T,1)} años &nbsp;|&nbsp; ` +
+    `esperado: <b>${fmt(lam * T,1)}</b> saltos &nbsp;|&nbsp; observados: <b>${llegadas.length}</b>`;
+}
+
+// ============================================================
+// Enlaces de controles
+// ============================================================
+function bind(id, labelId, fmtN, fn) {
+  const el = document.getElementById(id);
+  const upd = () => {
+    document.getElementById(labelId).textContent = fmtN(+el.value);
+    fn();
+  };
+  el.addEventListener('input', upd);
+}
+// 1
+['mc-lam:mc-lam-v:1','mc-muj:mc-muj-v:2','mc-sigj:mc-sigj-v:2','mc-sig:mc-sig-v:2']
+  .forEach(s => { const [i, l, d] = s.split(':'); bind(i, l, v => v.toFixed(+d), mcSimular); });
+document.getElementById('mc-btn').addEventListener('click', mcSimular);
+// 2
+['dist-lam:dist-lam-v:1','dist-muj:dist-muj-v:2','dist-sigj:dist-sigj-v:2','dist-sig:dist-sig-v:2']
+  .forEach(s => { const [i, l, d] = s.split(':'); bind(i, l, v => v.toFixed(+d), distCalc); });
+document.getElementById('dist-btn').addEventListener('click', distCalc);
+// 3
+['op-t:op-t-v:1','op-sig:op-sig-v:2','op-lam:op-lam-v:1','op-muj:op-muj-v:2',
+ 'op-sigj:op-sigj-v:2','op-r:op-r-v:3'].forEach(s => {
+  const [i, l, d] = s.split(':'); bind(i, l, v => v.toFixed(+d), opCalc);
+});
+['op-s','op-k'].forEach(id => document.getElementById(id).addEventListener('input', opCalc));
+// 4
+['pois-lam:pois-lam-v:1','pois-T:pois-T-v:1']
+  .forEach(s => { const [i, l, d] = s.split(':'); bind(i, l, v => v.toFixed(+d), poisDraw); });
+document.getElementById('pois-btn').addEventListener('click', poisDraw);
+
+// Primer dibujado
+mcSimular(); distCalc(); opCalc(); poisDraw();
+// Redibujado responsivo
+window.addEventListener('resize', () => { mcSimular(); distCalc(); poisDraw(); });
+</script>
+
+---
+
+## Preguntas de análisis
+
+::: {.incremental}
+- **Monte Carlo:** ¿qué le ocurre al número de saltos observados cuando λ pasa de 0 a 5? ¿Y cuando λ=0, se parece al GBM?
+- **Distribución:** ¿por qué la cola izquierda de Merton es más pesada que la del GBM? ¿Qué significa eso para el riesgo?
+- **Opciones:** ¿por qué la call de Merton es más cara que la de Black-Scholes cuando λ>0? ¿Qué pasa si λ=0?
+- **Poisson:** ¿la cantidad de llegadas observada se acerca al valor esperado λ·T? ¿Por qué varía entre realizaciones?
+:::
+
+::: {.callout-tip}
+## Para ir más lejos
+Los mismos cálculos en Python están en los [notebooks en Colab](index.qmd#recursos), y la [demo de trayectorias](demo_trayectorias.qmd) permite comparar GBM vs Merton con muchos más parámetros.
+:::

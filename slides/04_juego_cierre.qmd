@@ -1,0 +1,174 @@
+---
+title: "El Mercado que Salta — juego y cierre"
+subtitle: "Predicción de precios con saltos y síntesis de la clase"
+author: "Universidad Externado de Colombia · DEFI 2"
+format:
+  revealjs:
+    theme: ../styles/reveal-merton.scss
+    transition: fade
+    slide-number: true
+    preview-links: auto
+    footer: "Merton Jump-Diffusion · Juego y cierre"
+    fig-cap-location: bottom
+    width: 1280
+    height: 720
+---
+
+## El juego: "El Mercado que Salta"
+
+::: {.incremental}
+- Simularás un mercado con **20 cartas**: 17 de difusión, 3 de salto.
+- **Predices** el precio final antes de cada carta.
+- Volteas la carta y **actualizas** el precio.
+- Compara tu predicción con el resultado real.
+:::
+
+---
+
+## Materiales por mesa
+
+::: {.incremental}
+- 20 cartas (17 con fondo blanco de difusión, 3 con fondo negro de salto).
+- Un **dado**, calculadora.
+- Hoja de predicciones.
+- Precio base: **100**.
+:::
+
+---
+
+## Cartas de difusión (17)
+
+::: {.incremental}
+- Instrucción: "Tira el dado. Si sale 1–3, el precio **sube 2%**. Si sale 4–6, **baja 2%**."
+- Movimientos **pequeños y continuos** — como el GBM.
+- Son la **mayoría** del mercado (como en la realidad).
+- Tu intuición funciona bien aquí.
+:::
+
+---
+
+## Cartas de salto (3)
+
+::: {.incremental}
+- Instrucción: "**¡SALTO!** El precio **cae 15%**."
+- Movimiento **grande y discontinuo** — como Merton.
+- Son **raras** pero **devastadoras**.
+- Aquí la intuición de continuidad **falla**.
+:::
+
+---
+
+## Cómo se juega
+
+::: {.incremental}
+1. Anota tu **predicción** del precio antes de voltear.
+2. Voltea la carta y aplica el movimiento.
+3. **Actualiza** el precio real.
+4. Compara predicción vs. realidad.
+5. Repite hasta las 20 cartas.
+6. **Calcula** el precio final con la fórmula simplificada.
+:::
+
+---
+
+## La fórmula simplificada
+
+$$P_{final} = P_{anterior} \times (1 + \text{movimiento})$$
+
+::: {.incremental}
+- Difusión: $P \times 1.02$ (sube) o $P \times 0.98$ (baja).
+- Salto: $P \times 0.85$ (cae 15%).
+- Encadena 20 veces desde $P_0 = 100$.
+- **Sorpresa:** 3 saltos pueden **hundir** lo que 17 difusiones construyeron.
+:::
+
+---
+
+## La lección del juego
+
+::: {.incremental}
+- Predijiste bien las **difusión** (continuidad).
+- Fallaste en los **saltos** (discontinuidad).
+- Un modelo que solo asume continuidad **subestima** el riesgo real.
+- **Ese** es el riesgo de salto, vivido con números.
+:::
+
+::: {.callout-note}
+Si fallaste exactamente en las cartas de salto, el juego mostró exactamente por qué Merton agregó el proceso de Poisson.
+:::
+
+---
+
+## Qué observar en tus resultados
+
+::: {.incremental}
+- ¿En qué **carta exacta** se desvió tu predicción del precio real?
+- ¿Tu error fue **grande** o **pequeño** en los saltos?
+- ¿Cómo cambiaría tu estrategia de predicción para una **segunda ronda**?
+- ¿Qué parámetro del modelo ($\lambda$, tamaño del salto) representaría ese error?
+:::
+
+---
+
+# Cierre de la clase {.center}
+
+---
+
+## Síntesis: lo que vimos
+
+::: {.incremental}
+- El GBM asume **continuidad**; los mercatos **saltan**.
+- Merton (1976) agrega un **proceso de Poisson** con frecuencia $\lambda$.
+- El salto $J$ es **log-normal** (media $\mu_J$, vol $\sigma_J$).
+- $\lambda k$ **compensa** el drift.
+:::
+
+---
+
+## Síntesis: dónde se ve
+
+::: {.incremental}
+- En las **trayectorias**: escalones aislados en los precios.
+- En las **opciones**: la sonrisa de volatilidad implícita.
+- En el **juego**: predicciones que fallan en los saltos.
+- En los **precios**: Merton vs. Black-Scholes con saltos altos.
+:::
+
+---
+
+## Síntesis: por qué importa
+
+::: {.incremental}
+- Modelar continuidad en un mercado con saltos = **subestimar el riesgo**.
+- Colas más gruesas → mejor **gestión de riesgo** y **precios de opciones**.
+- La distinción continuidad/discontinuidad aparece en **crisis, quiebras y defaults**.
+:::
+
+---
+
+## Volviendo a la pregunta de apertura
+
+> Recordaste: "¿cómo crees que se mueve el precio?"
+
+::: {.incremental}
+- Al inicio dijiste quizás: "pasos continuos".
+- Hoy sabes: **casi siempre** continuo, **pero a veces salta**.
+- Y sabes **modelar** ese salto con $\lambda$, $\mu_J$, $\sigma_J$.
+:::
+
+---
+
+## Para seguir estudiando
+
+::: {.incremental}
+- **Herramientas interactivas** del sitio: Monte Carlo, distribuciones, opciones, Poisson.
+- **Notebooks en Colab** para experimentar con más parámetros.
+- **Hoja de trabajo** con 6 gráficos para practicar la detección.
+- **Taller:** identifica un "salto" real y analízalo con el modelo.
+:::
+
+---
+
+## Gracias
+
+> "Los precios no solo caminan. **Saltan.** Y ahora sabes modelarlo."

@@ -241,5 +241,5 @@ Cuando en la demo veas λ=0, estás mirando puro GBM. Al subir λ, introduces sa
 ::: {.incremental}
 - En el Bloque 2 usarás sliders para $\lambda, \mu_J, \sigma_J, \sigma$.
 - Verás la trayectoria cambiar **en vivo**.
-- Predice antes de mover cada slider — ese es el ejercicio metacognitivo.
+- Predice antes de mover cada slider — así comparas intuición y resultado.
 :::

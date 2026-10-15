@@ -3,8 +3,8 @@ project:
   output-dir: _site
 
 website:
-  title: "Merton Jump-Diffusion"
-  description: "Clase completa: del conflicto cognitivo a la transferencia metacognitiva"
+  title: "Saltos por Difusión de Merton"
+  description: "Teoría, simulaciones y material de clase — Merton (1976)"
   site-url: https://jojjjt.github.io/merton-jump-diffusion-class/
   repo-url: https://github.com/JojjjT/merton-jump-diffusion-class
   repo-actions: [edit, issue]
@@ -19,14 +19,14 @@ website:
         text: Inicio
       - href: teoria.qmd
         text: Teoría
+      - href: herramientas.qmd
+        text: Herramientas
       - href: demo_trayectorias.qmd
         text: Demo interactiva
       - href: slides/00_portada.qmd
         text: Presentaciones
       - href: materiales.qmd
         text: Materiales
-      - href: guion_docente.qmd
-        text: Guion docente
   sidebar:
     - style: "docked"
       contents:
@@ -34,6 +34,7 @@ website:
         - section: "La clase"
           contents:
             - teoria.qmd
+            - herramientas.qmd
             - demo_trayectorias.qmd
         - section: "Presentaciones"
           contents:
@@ -41,7 +42,7 @@ website:
             - slides/01_teoria.qmd
             - slides/02_laboratorio.qmd
             - slides/03_volatilidad.qmd
-            - slides/04_juego_debriefing.qmd
+            - slides/04_juego_cierre.qmd
         - section: "Notebooks"
           contents:
             - notebooks/01_colapso_GBM.ipynb
@@ -50,7 +51,7 @@ website:
         - section: "Materiales"
           contents:
             - materiales.qmd
-            - guion_docente.qmd
+            - docs/00_plan_de_clase.md
 
 format:
   html:

@@ -110,14 +110,14 @@ fig.update_layout(
 fig.show(config={"displaylogo": False})
 ```
 
-## Consigna metacognitiva
+## Preguntas de análisis
 
-Antes de tocar el demo, responde y luego verifica:
+Antes de tocar el demo, responde y luego verifica con la simulación:
 
-1. **Planifiqué:** ¿qué espero ver cuando λ pasa de 0 a 5?
-2. **Monitoreé:** ¿qué observé realmente en las trayectorias?
-3. **Controlé:** ¿qué parámetro ajusté para comprobar otra hipótesis?
-4. **Evalué:** ¿qué resultado me hizo revisar mi razonamiento?
+1. ¿Qué cambio espero ver cuando λ pasa de 0 a 5?
+2. ¿Qué observo realmente en las trayectorias al mover cada slider?
+3. ¿Qué parámetro debo ajustar para comprobar otra hipótesis?
+4. ¿Qué resultado me hace revisar mi razonamiento inicial?
 
 **Preguntas guía:**
 
